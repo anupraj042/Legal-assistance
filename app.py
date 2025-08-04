@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from ce_model import predict
+from candidate_elimination import predict, train_model, get_model_info
 
 app = Flask(__name__)
 
@@ -19,6 +19,12 @@ def home():
 @app.route('/legal-assistant')
 def index():
     return render_template("index.html")
+
+@app.route('/model-info')
+def model_info():
+    """Display information about the trained Candidate Elimination model"""
+    info = get_model_info()
+    return f"<pre>{info}</pre>"
 
 @app.route('/predict', methods=['POST'])
 def prediction():
@@ -50,8 +56,18 @@ if __name__ == '__main__':
     print("=" * 50)
     print("🏛️  LEGAL ASSISTANCE BOT STARTING...")
     print("=" * 50)
+    
+    # Train the Candidate Elimination model
+    print("🎯 Training Candidate Elimination Algorithm...")
+    if train_model():
+        print("✅ Model training completed successfully!")
+    else:
+        print("❌ Model training failed!")
+    
+    print("=" * 50)
     print("📍 Server will be available at: http://127.0.0.1:5000")
     print("📍 Or visit: http://localhost:5000")
+    print("📍 Model info available at: http://localhost:5000/model-info")
     print("🔧 Debug mode: ON")
     print("⏹️  Press Ctrl+C to stop the server")
     print("=" * 50)
