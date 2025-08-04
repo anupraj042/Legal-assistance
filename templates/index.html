@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Assistance Bot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Legal Assistance Bot</h2>
+  <form method="post" action="/predict">
+    <label>Case Type:</label>
+    <select name="case_type">
+      <option value="Civil">Civil</option>
+      <option value="Criminal">Criminal</option>
+      <option value="Consumer">Consumer</option>
+      <option value="Family">Family</option>
+      <option value="Environmental">Environmental</option>
+      <option value="PIL">PIL</option>
+    </select><br>
+
+    <label>Agreement Signed:</label>
+    <select name="agreement"><option>Yes</option><option>No</option></select><br>
+
+    <label>Notice Given:</label>
+    <select name="notice"><option>Yes</option><option>No</option></select><br>
+
+    <label>Consumer Complaint:</label>
+    <select name="consumer"><option>Yes</option><option>No</option></select><br>
+
+    <label>Matrimonial Issue:</label>
+    <select name="matrimonial"><option>Yes</option><option>No</option></select><br>
+
+    <label>Value Involved:</label>
+    <select name="value">
+      <option>&lt;10k</option>
+      <option>10k–1L</option>
+      <option>&gt;1L</option>
+      <option>N/A</option>
+    </select><br>
+
+    <input type="submit" value="Check Legal Issue">
+  </form>
+
+  {% if result %}
+    <div class="result">Prediction: <strong>{{ result }}</strong></div>
+  {% endif %}
+</body>
+</html>
