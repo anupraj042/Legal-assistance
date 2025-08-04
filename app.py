@@ -13,21 +13,38 @@ def after_request(response):
     return response
 
 @app.route('/')
+def home():
+    return render_template("home.html")
+
+@app.route('/legal-assistant')
 def index():
     return render_template("index.html")
 
 @app.route('/predict', methods=['POST'])
 def prediction():
+    # Get form data
+    form_data = {
+        'case_type': request.form['case_type'],
+        'sub_type': request.form['sub_type'],
+        'agreement': request.form['agreement'],
+        'notice': request.form['notice'],
+        'consumer': request.form['consumer'],
+        'matrimonial': request.form['matrimonial'],
+        'value': request.form['value']
+    }
+    
     data = [
-        request.form['case_type'],
-        request.form['agreement'],
-        request.form['notice'],
-        request.form['consumer'],
-        request.form['matrimonial'],
-        request.form['value']
+        form_data['case_type'],
+        form_data['sub_type'],
+        form_data['agreement'],
+        form_data['notice'],
+        form_data['consumer'],
+        form_data['matrimonial'],
+        form_data['value']
     ]
-    result = predict(data)
-    return render_template("index.html", result=result)
+    
+    result, guidance = predict(data)
+    return render_template("index.html", result=result, guidance=guidance, form_data=form_data)
 
 if __name__ == '__main__':
     print("=" * 50)

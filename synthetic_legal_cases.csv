@@ -1,501 +1,65 @@
 Case Type,Sub-Type,Value Involved,Agreement Signed,Notice Given,Consumer Complaint,Matrimonial Issue,Legal Issue
-Environmental,Land Violation,<10k,No,No,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,No,Yes,No,Yes
-Criminal,Dowry Harassment,10k�1L,Yes,No,Yes,No,Yes
-Civil,Eviction,<10k,Yes,Yes,Yes,No,Yes
-Family,Child Custody,>1L,No,No,No,Yes,Yes
-Criminal,Dowry Harassment,10k�1L,Yes,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,Yes,No,Yes,No,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-Environmental,Land Violation,10k�1L,No,No,No,No,Yes
-Consumer,Non-Delivery,N/A,Yes,Yes,Yes,No,Yes
-PIL,Right to Education,N/A,Yes,No,No,No,Yes
-Criminal,Dowry Harassment,<10k,Yes,Yes,No,No,Yes
-Consumer,Defective Product,<10k,No,Yes,Yes,No,No
-PIL,Government Inaction,N/A,Yes,No,No,No,Yes
-Civil,Property Dispute,N/A,Yes,Yes,Yes,No,No
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-Criminal,Theft,>1L,Yes,Yes,No,No,Yes
-Family,Divorce,N/A,No,No,No,Yes,Yes
-Consumer,Non-Delivery,N/A,Yes,No,Yes,No,Yes
-Family,Child Custody,>1L,Yes,No,Yes,Yes,Yes
-Family,Maintenance,N/A,No,No,Yes,Yes,Yes
-PIL,RTI Delay,N/A,Yes,No,No,No,Yes
-Environmental,Illegal Mining,N/A,No,No,Yes,No,Yes
-Civil,Property Dispute,>1L,Yes,Yes,Yes,No,No
-Environmental,Land Violation,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,10k�1L,Yes,No,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
-Family,Divorce,>1L,Yes,Yes,No,Yes,Yes
-Criminal,Theft,N/A,No,No,No,No,Yes
-Environmental,Pollution,<10k,Yes,No,No,No,Yes
-Criminal,Domestic Violence,N/A,No,No,No,No,Yes
-Civil,Eviction,>1L,No,Yes,Yes,No,Yes
-Consumer,Defective Product,>1L,No,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,Yes,Yes,No,No,Yes
-Family,Divorce,>1L,No,No,Yes,Yes,Yes
-Environmental,Pollution,10k�1L,Yes,No,Yes,No,Yes
-Criminal,Domestic Violence,10k�1L,Yes,Yes,Yes,No,Yes
-Environmental,Illegal Mining,N/A,Yes,Yes,No,No,Yes
-Criminal,Domestic Violence,N/A,Yes,No,Yes,No,Yes
-Family,Maintenance,10k�1L,Yes,No,No,Yes,Yes
-PIL,Right to Education,N/A,No,Yes,Yes,No,Yes
-Environmental,Illegal Mining,<10k,No,No,No,No,Yes
-Civil,Property Dispute,10k�1L,No,No,No,No,No
-PIL,RTI Delay,N/A,No,Yes,Yes,No,Yes
-Criminal,Dowry Harassment,<10k,No,Yes,No,No,Yes
-Criminal,Domestic Violence,<10k,No,No,No,No,Yes
-Family,Divorce,<10k,No,Yes,No,Yes,Yes
-Consumer,Non-Delivery,10k�1L,Yes,Yes,Yes,No,Yes
-Family,Child Custody,<10k,No,Yes,Yes,Yes,Yes
-Family,Child Custody,>1L,Yes,No,No,Yes,Yes
-Environmental,Illegal Mining,N/A,No,Yes,No,No,Yes
-Environmental,Land Violation,>1L,Yes,Yes,No,No,Yes
-Civil,Eviction,10k�1L,Yes,No,No,No,Yes
-Family,Child Custody,<10k,No,Yes,No,Yes,Yes
-Criminal,Domestic Violence,N/A,No,No,Yes,No,Yes
-Consumer,Non-Delivery,>1L,No,Yes,Yes,No,Yes
-Environmental,Illegal Mining,N/A,Yes,Yes,Yes,No,Yes
-Civil,Cheque Bounce,>1L,Yes,No,Yes,No,Yes
-Family,Maintenance,10k�1L,Yes,Yes,No,Yes,Yes
-Environmental,Illegal Mining,10k�1L,Yes,No,No,No,Yes
-Environmental,Illegal Mining,>1L,Yes,Yes,Yes,No,Yes
-Criminal,Domestic Violence,<10k,No,Yes,No,No,Yes
-Criminal,Domestic Violence,10k�1L,No,No,Yes,No,Yes
-Consumer,Non-Delivery,N/A,Yes,No,Yes,No,Yes
-Family,Child Custody,>1L,Yes,No,Yes,Yes,Yes
-Criminal,Domestic Violence,N/A,Yes,No,Yes,No,Yes
-Civil,Eviction,<10k,Yes,Yes,No,No,Yes
-Environmental,Pollution,>1L,Yes,No,No,No,Yes
-Environmental,Illegal Mining,>1L,No,No,Yes,No,Yes
-Consumer,Defective Product,10k�1L,Yes,No,Yes,No,Yes
-Family,Divorce,10k�1L,No,No,No,Yes,Yes
-Civil,Eviction,>1L,Yes,No,Yes,No,Yes
-PIL,Government Inaction,N/A,Yes,Yes,No,No,Yes
-Family,Divorce,<10k,Yes,Yes,Yes,Yes,Yes
-PIL,Government Inaction,N/A,No,No,No,No,Yes
-Consumer,Defective Product,>1L,No,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
-Family,Divorce,>1L,Yes,No,No,Yes,Yes
-Environmental,Land Violation,N/A,No,No,Yes,No,Yes
-Environmental,Pollution,N/A,Yes,No,No,No,Yes
-Environmental,Illegal Mining,10k�1L,No,No,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,Yes,No,No,No,Yes
-Civil,Cheque Bounce,<10k,Yes,Yes,No,No,Yes
-PIL,RTI Delay,N/A,No,Yes,No,No,Yes
-Civil,Property Dispute,N/A,No,Yes,Yes,No,No
-Criminal,Domestic Violence,>1L,Yes,Yes,No,No,Yes
-Criminal,Dowry Harassment,N/A,Yes,No,Yes,No,Yes
-PIL,Right to Education,N/A,No,Yes,Yes,No,Yes
-Civil,Eviction,10k�1L,Yes,No,No,No,Yes
-Environmental,Land Violation,<10k,Yes,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,Yes,No,No,No,Yes
-PIL,RTI Delay,N/A,No,No,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,Yes,No,No,Yes
-PIL,Right to Education,N/A,No,Yes,Yes,No,Yes
-Environmental,Pollution,10k�1L,No,No,Yes,No,Yes
-Civil,Property Dispute,>1L,No,No,No,No,No
-Family,Maintenance,>1L,No,Yes,No,Yes,Yes
-Consumer,Defective Product,10k�1L,Yes,Yes,Yes,No,Yes
-Environmental,Illegal Mining,<10k,Yes,Yes,No,No,Yes
-Environmental,Land Violation,<10k,No,No,Yes,No,Yes
-Consumer,Non-Delivery,<10k,No,No,Yes,No,No
-PIL,RTI Delay,N/A,Yes,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,No,No,Yes,No,Yes
-Family,Child Custody,N/A,Yes,No,No,Yes,Yes
-PIL,Right to Education,N/A,Yes,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,No,Yes,No,No,Yes
-Family,Child Custody,N/A,Yes,No,No,Yes,Yes
-Civil,Eviction,<10k,No,Yes,No,No,Yes
-Consumer,Defective Product,<10k,Yes,Yes,Yes,No,No
-Consumer,Non-Delivery,N/A,No,No,Yes,No,Yes
-Criminal,Domestic Violence,10k�1L,Yes,No,Yes,No,Yes
-PIL,Government Inaction,N/A,No,Yes,No,No,Yes
-Criminal,Theft,>1L,Yes,Yes,Yes,No,Yes
-Family,Child Custody,N/A,Yes,No,Yes,Yes,Yes
-Environmental,Pollution,<10k,No,No,No,No,Yes
-Criminal,Dowry Harassment,>1L,No,Yes,No,No,Yes
-Criminal,Theft,<10k,Yes,Yes,Yes,No,Yes
-Consumer,Non-Delivery,N/A,Yes,No,Yes,No,Yes
-Environmental,Land Violation,>1L,No,Yes,No,No,Yes
-Criminal,Theft,<10k,No,No,No,No,Yes
-Consumer,Non-Delivery,N/A,No,No,Yes,No,Yes
-Environmental,Land Violation,N/A,No,Yes,Yes,No,Yes
-Environmental,Pollution,N/A,No,Yes,Yes,No,Yes
-Civil,Eviction,10k�1L,Yes,No,Yes,No,Yes
-Criminal,Dowry Harassment,>1L,No,Yes,Yes,No,Yes
-Consumer,False Ads,10k�1L,No,Yes,Yes,No,Yes
-Family,Divorce,>1L,Yes,No,No,Yes,Yes
-PIL,RTI Delay,N/A,Yes,No,No,No,Yes
-Consumer,False Ads,N/A,No,Yes,Yes,No,Yes
-Family,Maintenance,10k�1L,Yes,No,No,Yes,Yes
-Criminal,Domestic Violence,10k�1L,No,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,No,No,No,No,Yes
-Consumer,Defective Product,>1L,No,Yes,Yes,No,Yes
-Environmental,Land Violation,N/A,No,No,No,No,Yes
-Family,Divorce,10k�1L,No,No,Yes,Yes,Yes
-Criminal,Theft,10k�1L,Yes,Yes,No,No,Yes
-Family,Divorce,<10k,Yes,No,No,Yes,Yes
-Environmental,Land Violation,N/A,Yes,No,Yes,No,Yes
-Environmental,Pollution,N/A,Yes,No,Yes,No,Yes
-Family,Divorce,>1L,Yes,Yes,Yes,Yes,Yes
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-Civil,Property Dispute,10k�1L,No,No,Yes,No,No
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-Environmental,Land Violation,N/A,Yes,No,Yes,No,Yes
-Environmental,Illegal Mining,10k�1L,Yes,No,No,No,Yes
-Environmental,Pollution,<10k,No,Yes,No,No,Yes
-Consumer,False Ads,N/A,No,Yes,Yes,No,Yes
-Family,Child Custody,>1L,No,Yes,Yes,Yes,Yes
-Family,Child Custody,<10k,Yes,Yes,Yes,Yes,Yes
-Civil,Property Dispute,N/A,Yes,Yes,Yes,No,No
-Criminal,Domestic Violence,10k�1L,Yes,Yes,No,No,Yes
-Civil,Eviction,N/A,Yes,No,Yes,No,Yes
-Family,Child Custody,10k�1L,No,No,No,Yes,Yes
-PIL,Right to Education,N/A,Yes,No,Yes,No,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-Environmental,Pollution,10k�1L,Yes,No,No,No,Yes
-Family,Child Custody,>1L,Yes,No,No,Yes,Yes
-PIL,Government Inaction,N/A,No,Yes,No,No,Yes
-Civil,Property Dispute,>1L,No,Yes,No,No,No
-Civil,Eviction,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Pollution,10k�1L,Yes,Yes,Yes,No,Yes
-Civil,Property Dispute,N/A,No,No,No,No,No
-Environmental,Illegal Mining,10k�1L,Yes,No,No,No,Yes
-Environmental,Illegal Mining,>1L,No,Yes,Yes,No,Yes
-Consumer,Non-Delivery,N/A,Yes,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,No,No,No,Yes
-Criminal,Dowry Harassment,<10k,No,Yes,Yes,No,Yes
-Civil,Property Dispute,N/A,Yes,Yes,Yes,No,No
-Family,Maintenance,N/A,No,No,No,Yes,Yes
-Criminal,Domestic Violence,<10k,Yes,Yes,Yes,No,Yes
-Civil,Eviction,N/A,No,No,No,No,Yes
-Civil,Property Dispute,N/A,Yes,Yes,No,No,No
-Civil,Property Dispute,N/A,No,No,Yes,No,No
-Environmental,Pollution,<10k,No,Yes,Yes,No,Yes
-Criminal,Domestic Violence,<10k,No,No,No,No,Yes
-Civil,Cheque Bounce,<10k,Yes,Yes,No,No,Yes
-Environmental,Land Violation,>1L,Yes,Yes,No,No,Yes
-Environmental,Pollution,N/A,Yes,No,Yes,No,Yes
-Civil,Property Dispute,>1L,No,Yes,Yes,No,No
-PIL,Government Inaction,N/A,Yes,No,No,No,Yes
-Family,Child Custody,N/A,No,Yes,No,Yes,Yes
-Consumer,Defective Product,>1L,Yes,Yes,Yes,No,Yes
-Civil,Eviction,10k�1L,Yes,No,No,No,Yes
-Family,Divorce,>1L,Yes,Yes,Yes,Yes,Yes
-PIL,Right to Education,N/A,No,No,No,No,Yes
-Family,Divorce,10k�1L,Yes,Yes,No,Yes,Yes
-Consumer,Defective Product,10k�1L,Yes,No,Yes,No,Yes
-Consumer,False Ads,10k�1L,Yes,Yes,Yes,No,Yes
-Consumer,Non-Delivery,<10k,Yes,No,Yes,No,No
-PIL,Right to Education,N/A,Yes,Yes,Yes,No,Yes
-PIL,Right to Education,N/A,No,No,No,No,Yes
-Family,Maintenance,10k�1L,Yes,Yes,Yes,Yes,Yes
-Consumer,Non-Delivery,N/A,No,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,No,No,Yes,No,Yes
-Consumer,False Ads,10k�1L,Yes,No,Yes,No,Yes
-Consumer,Non-Delivery,<10k,No,Yes,Yes,No,No
-Criminal,Theft,<10k,No,No,Yes,No,Yes
-Family,Child Custody,<10k,No,No,No,Yes,Yes
-Consumer,False Ads,10k�1L,No,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,No,No,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Civil,Cheque Bounce,>1L,Yes,No,No,No,Yes
-Criminal,Theft,N/A,No,No,Yes,No,Yes
-Environmental,Pollution,<10k,No,No,Yes,No,Yes
-Family,Maintenance,N/A,No,Yes,Yes,Yes,Yes
-Consumer,Defective Product,N/A,No,No,Yes,No,Yes
-Criminal,Dowry Harassment,<10k,Yes,Yes,No,No,Yes
-Environmental,Illegal Mining,<10k,Yes,Yes,No,No,Yes
-Criminal,Dowry Harassment,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
-Environmental,Land Violation,N/A,Yes,Yes,Yes,No,Yes
-Civil,Cheque Bounce,<10k,No,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,No,No,No,No,Yes
-Family,Child Custody,<10k,No,No,Yes,Yes,Yes
-Consumer,False Ads,N/A,No,No,Yes,No,Yes
-Environmental,Illegal Mining,<10k,No,Yes,Yes,No,Yes
-Civil,Property Dispute,10k�1L,Yes,No,Yes,No,No
-Civil,Cheque Bounce,N/A,No,No,No,No,Yes
-Criminal,Dowry Harassment,<10k,No,Yes,No,No,Yes
-Family,Child Custody,N/A,No,No,Yes,Yes,Yes
-Civil,Property Dispute,<10k,No,Yes,No,No,No
-Criminal,Dowry Harassment,10k�1L,Yes,No,Yes,No,Yes
-Environmental,Pollution,N/A,Yes,No,No,No,Yes
-Family,Maintenance,10k�1L,Yes,Yes,No,Yes,Yes
-Consumer,Defective Product,10k�1L,No,No,Yes,No,Yes
-Criminal,Theft,10k�1L,No,No,No,No,Yes
-PIL,Government Inaction,N/A,No,No,No,No,Yes
-Family,Maintenance,10k�1L,No,Yes,No,Yes,Yes
-Criminal,Dowry Harassment,10k�1L,Yes,Yes,No,No,Yes
-Environmental,Illegal Mining,10k�1L,Yes,Yes,No,No,Yes
-Environmental,Illegal Mining,<10k,Yes,No,No,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
-Family,Child Custody,N/A,No,Yes,No,Yes,Yes
-PIL,RTI Delay,N/A,Yes,Yes,No,No,Yes
-Civil,Property Dispute,10k�1L,No,No,Yes,No,No
-Family,Divorce,>1L,Yes,Yes,Yes,Yes,Yes
-Criminal,Theft,10k�1L,Yes,Yes,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,No,No,Yes,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Civil,Eviction,<10k,Yes,Yes,Yes,No,Yes
-Environmental,Illegal Mining,N/A,No,No,No,No,Yes
-Family,Maintenance,<10k,Yes,No,Yes,Yes,Yes
-Family,Child Custody,>1L,Yes,Yes,Yes,Yes,Yes
-Environmental,Land Violation,>1L,Yes,Yes,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,Yes,No,Yes,No,Yes
-Environmental,Land Violation,>1L,Yes,No,No,No,Yes
-Family,Divorce,>1L,No,Yes,No,Yes,Yes
-Civil,Cheque Bounce,10k�1L,No,Yes,No,No,Yes
-Civil,Property Dispute,N/A,No,Yes,No,No,No
-Civil,Property Dispute,N/A,Yes,Yes,No,No,No
-Environmental,Land Violation,10k�1L,Yes,No,Yes,No,Yes
-Family,Divorce,>1L,Yes,Yes,No,Yes,Yes
-PIL,Government Inaction,N/A,No,No,No,No,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,No,Yes,No,Yes
-PIL,Right to Education,N/A,Yes,No,Yes,No,Yes
-PIL,Right to Education,N/A,No,Yes,Yes,No,Yes
-Criminal,Domestic Violence,<10k,No,No,No,No,Yes
-Criminal,Domestic Violence,<10k,No,No,Yes,No,Yes
-Environmental,Illegal Mining,10k�1L,Yes,No,No,No,Yes
-Consumer,Non-Delivery,10k�1L,Yes,No,Yes,No,Yes
-Consumer,Non-Delivery,N/A,Yes,Yes,Yes,No,Yes
-Civil,Property Dispute,<10k,Yes,No,No,No,No
-Environmental,Illegal Mining,>1L,No,No,No,No,Yes
-Family,Divorce,N/A,Yes,No,No,Yes,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-Family,Child Custody,N/A,No,Yes,No,Yes,Yes
-Consumer,Defective Product,N/A,Yes,No,Yes,No,Yes
-Criminal,Dowry Harassment,N/A,No,No,No,No,Yes
-Family,Child Custody,10k�1L,Yes,Yes,Yes,Yes,Yes
-Family,Child Custody,<10k,No,Yes,Yes,Yes,Yes
-Criminal,Theft,>1L,No,Yes,No,No,Yes
-Family,Maintenance,>1L,Yes,No,No,Yes,Yes
-Criminal,Domestic Violence,>1L,No,No,Yes,No,Yes
-Civil,Cheque Bounce,<10k,Yes,No,Yes,No,Yes
-Civil,Cheque Bounce,N/A,Yes,No,No,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Family,Child Custody,N/A,Yes,Yes,No,Yes,Yes
-Civil,Property Dispute,10k�1L,No,Yes,No,No,No
-Consumer,False Ads,10k�1L,No,Yes,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,No,No,Yes,No,Yes
-Civil,Cheque Bounce,<10k,No,No,No,No,Yes
-Consumer,Non-Delivery,<10k,No,No,Yes,No,No
-Environmental,Pollution,<10k,No,No,Yes,No,Yes
-Family,Child Custody,N/A,Yes,No,No,Yes,Yes
-Criminal,Domestic Violence,<10k,Yes,Yes,Yes,No,Yes
-Family,Divorce,N/A,Yes,Yes,No,Yes,Yes
-Criminal,Dowry Harassment,10k�1L,No,No,No,No,Yes
-Family,Maintenance,10k�1L,No,Yes,No,Yes,Yes
-Civil,Eviction,>1L,Yes,No,Yes,No,Yes
-Civil,Cheque Bounce,N/A,No,Yes,Yes,No,Yes
-Family,Maintenance,10k�1L,No,No,No,Yes,Yes
-Family,Divorce,10k�1L,Yes,No,No,Yes,Yes
-PIL,RTI Delay,N/A,Yes,No,Yes,No,Yes
-Consumer,Defective Product,10k�1L,Yes,Yes,Yes,No,Yes
-Civil,Eviction,>1L,No,Yes,Yes,No,Yes
 Family,Maintenance,<10k,Yes,No,No,Yes,Yes
-PIL,Right to Education,N/A,Yes,No,Yes,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Civil,Property Dispute,>1L,No,No,Yes,No,No
-Consumer,Non-Delivery,>1L,Yes,Yes,Yes,No,Yes
-Consumer,Defective Product,N/A,No,Yes,Yes,No,Yes
-Consumer,Defective Product,<10k,No,Yes,Yes,No,No
-Consumer,Non-Delivery,<10k,Yes,Yes,Yes,No,No
-Civil,Eviction,<10k,No,No,No,No,Yes
-PIL,Government Inaction,N/A,Yes,No,No,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Environmental,Illegal Mining,N/A,No,No,Yes,No,Yes
-Civil,Property Dispute,>1L,No,Yes,Yes,No,No
-PIL,Government Inaction,N/A,No,Yes,No,No,Yes
-Family,Maintenance,N/A,Yes,Yes,Yes,Yes,Yes
-Family,Maintenance,N/A,No,No,No,Yes,Yes
-PIL,Government Inaction,N/A,No,Yes,No,No,Yes
-Consumer,False Ads,>1L,Yes,Yes,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,No,Yes,No,No,Yes
-Consumer,Non-Delivery,N/A,No,No,Yes,No,Yes
-Criminal,Domestic Violence,<10k,Yes,No,No,No,Yes
-Consumer,Non-Delivery,10k�1L,Yes,No,Yes,No,Yes
-Consumer,False Ads,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Pollution,>1L,No,No,Yes,No,Yes
-Family,Maintenance,>1L,Yes,Yes,Yes,Yes,Yes
-Consumer,False Ads,<10k,No,Yes,Yes,No,No
-Criminal,Theft,>1L,No,Yes,No,No,Yes
-Civil,Property Dispute,<10k,Yes,Yes,No,No,No
-Consumer,False Ads,>1L,Yes,Yes,Yes,No,Yes
-Consumer,Non-Delivery,N/A,No,No,Yes,No,Yes
-Consumer,Defective Product,<10k,Yes,No,Yes,No,No
-Civil,Property Dispute,N/A,No,Yes,No,No,No
-Family,Maintenance,>1L,No,No,No,Yes,Yes
-Criminal,Theft,N/A,No,No,Yes,No,Yes
-Civil,Eviction,>1L,No,No,No,No,Yes
-Criminal,Dowry Harassment,<10k,No,Yes,Yes,No,Yes
-Consumer,Non-Delivery,>1L,No,Yes,Yes,No,Yes
-Civil,Cheque Bounce,<10k,No,No,Yes,No,Yes
-Family,Divorce,10k�1L,No,Yes,Yes,Yes,Yes
-Consumer,Defective Product,N/A,No,No,Yes,No,Yes
-Consumer,False Ads,>1L,Yes,Yes,Yes,No,Yes
-Civil,Property Dispute,N/A,No,No,Yes,No,No
-Civil,Cheque Bounce,10k�1L,No,No,No,No,Yes
-Criminal,Domestic Violence,N/A,No,Yes,No,No,Yes
-Civil,Eviction,10k�1L,No,No,Yes,No,Yes
-Civil,Property Dispute,10k�1L,No,No,Yes,No,No
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-PIL,Government Inaction,N/A,Yes,Yes,No,No,Yes
-Civil,Property Dispute,10k�1L,No,No,No,No,No
-Civil,Cheque Bounce,>1L,Yes,No,Yes,No,Yes
-Environmental,Land Violation,>1L,No,No,Yes,No,Yes
-Family,Child Custody,<10k,No,Yes,No,Yes,Yes
-Environmental,Land Violation,N/A,No,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,Yes,Yes,No,No,Yes
-Criminal,Theft,<10k,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,N/A,Yes,No,Yes,No,Yes
-Criminal,Dowry Harassment,>1L,No,Yes,Yes,No,Yes
-Criminal,Dowry Harassment,>1L,No,No,Yes,No,Yes
-Family,Maintenance,N/A,No,No,No,Yes,Yes
-PIL,RTI Delay,N/A,Yes,No,Yes,No,Yes
-Civil,Cheque Bounce,>1L,No,Yes,No,No,Yes
-PIL,RTI Delay,N/A,Yes,Yes,Yes,No,Yes
-Civil,Eviction,N/A,Yes,No,No,No,Yes
-Family,Maintenance,10k�1L,Yes,Yes,Yes,Yes,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-Civil,Property Dispute,N/A,Yes,Yes,No,No,No
-PIL,Right to Education,N/A,Yes,No,No,No,Yes
-Environmental,Land Violation,10k�1L,No,No,No,No,Yes
-Environmental,Land Violation,10k�1L,Yes,Yes,No,No,Yes
-PIL,Right to Education,N/A,No,No,No,No,Yes
-Family,Maintenance,N/A,No,No,No,Yes,Yes
-Family,Child Custody,>1L,No,No,No,Yes,Yes
-Environmental,Pollution,10k�1L,No,Yes,Yes,No,Yes
-Environmental,Pollution,N/A,Yes,No,Yes,No,Yes
-Environmental,Pollution,>1L,Yes,No,Yes,No,Yes
-Consumer,Non-Delivery,10k�1L,No,No,Yes,No,Yes
-Criminal,Dowry Harassment,10k�1L,No,Yes,Yes,No,Yes
-Family,Divorce,<10k,No,No,No,Yes,Yes
-Family,Maintenance,10k�1L,Yes,Yes,Yes,Yes,Yes
-Criminal,Dowry Harassment,>1L,No,Yes,No,No,Yes
-Criminal,Theft,>1L,No,No,Yes,No,Yes
-PIL,Right to Education,N/A,Yes,Yes,No,No,Yes
-Civil,Eviction,N/A,No,Yes,No,No,Yes
-Criminal,Domestic Violence,>1L,No,Yes,No,No,Yes
-Environmental,Land Violation,10k�1L,Yes,Yes,Yes,No,Yes
-Consumer,False Ads,<10k,Yes,Yes,Yes,No,No
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-Civil,Property Dispute,N/A,No,Yes,No,No,No
-Civil,Eviction,N/A,No,Yes,Yes,No,Yes
-Environmental,Land Violation,>1L,Yes,No,Yes,No,Yes
-Environmental,Land Violation,N/A,Yes,Yes,No,No,Yes
-Consumer,Non-Delivery,>1L,No,No,Yes,No,Yes
-Consumer,Defective Product,<10k,No,No,Yes,No,No
-PIL,Right to Education,N/A,No,Yes,No,No,Yes
-PIL,Right to Education,N/A,No,No,No,No,Yes
-PIL,RTI Delay,N/A,Yes,Yes,Yes,No,Yes
-Family,Divorce,>1L,Yes,Yes,No,Yes,Yes
-Environmental,Illegal Mining,>1L,No,Yes,No,No,Yes
-Consumer,Non-Delivery,10k�1L,Yes,No,Yes,No,Yes
-Family,Maintenance,<10k,Yes,Yes,No,Yes,Yes
-Civil,Cheque Bounce,<10k,Yes,No,Yes,No,Yes
-Civil,Eviction,10k�1L,Yes,Yes,Yes,No,Yes
-Environmental,Illegal Mining,>1L,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,>1L,Yes,Yes,No,No,Yes
-Criminal,Dowry Harassment,>1L,Yes,Yes,No,No,Yes
-Civil,Eviction,N/A,Yes,No,No,No,Yes
-PIL,Government Inaction,N/A,No,No,Yes,No,Yes
-Environmental,Illegal Mining,10k�1L,No,No,No,No,Yes
-Criminal,Domestic Violence,<10k,No,Yes,No,No,Yes
-Environmental,Pollution,<10k,No,Yes,Yes,No,Yes
-Family,Child Custody,10k�1L,Yes,No,Yes,Yes,Yes
-Consumer,False Ads,<10k,No,No,Yes,No,No
-Environmental,Illegal Mining,10k�1L,No,Yes,Yes,No,Yes
-Criminal,Domestic Violence,10k�1L,No,No,No,No,Yes
-Family,Maintenance,<10k,No,No,Yes,Yes,Yes
-Civil,Cheque Bounce,>1L,No,No,Yes,No,Yes
-Family,Child Custody,10k�1L,No,No,Yes,Yes,Yes
-Environmental,Pollution,>1L,Yes,No,No,No,Yes
-PIL,Right to Education,N/A,Yes,No,No,No,Yes
-Consumer,False Ads,N/A,Yes,No,Yes,No,Yes
-Environmental,Illegal Mining,>1L,No,Yes,No,No,Yes
-Consumer,Defective Product,N/A,Yes,Yes,Yes,No,Yes
-Family,Divorce,<10k,Yes,No,No,Yes,Yes
-Civil,Eviction,<10k,Yes,No,No,No,Yes
-Consumer,Defective Product,N/A,No,No,Yes,No,Yes
-Environmental,Land Violation,>1L,No,Yes,No,No,Yes
-Environmental,Land Violation,10k�1L,No,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,Yes,Yes,No,Yes
-Criminal,Dowry Harassment,10k�1L,Yes,No,Yes,No,Yes
-PIL,RTI Delay,N/A,No,No,Yes,No,Yes
-Environmental,Land Violation,>1L,No,No,No,No,Yes
-Family,Divorce,>1L,No,No,Yes,Yes,Yes
-Civil,Property Dispute,10k�1L,No,Yes,No,No,No
-Family,Divorce,<10k,No,Yes,No,Yes,Yes
-Consumer,Defective Product,10k�1L,No,Yes,Yes,No,Yes
-PIL,Right to Education,N/A,Yes,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,No,No,No,No,Yes
-Family,Divorce,N/A,No,Yes,Yes,Yes,Yes
-Criminal,Dowry Harassment,10k�1L,Yes,No,No,No,Yes
-Environmental,Pollution,10k�1L,Yes,Yes,No,No,Yes
-Family,Child Custody,>1L,No,Yes,Yes,Yes,Yes
-Criminal,Theft,N/A,No,Yes,No,No,Yes
-Civil,Property Dispute,>1L,Yes,Yes,No,No,No
-Family,Divorce,>1L,No,Yes,No,Yes,Yes
-Family,Child Custody,10k�1L,Yes,No,Yes,Yes,Yes
-Family,Maintenance,>1L,Yes,Yes,No,Yes,Yes
-Consumer,False Ads,>1L,Yes,No,Yes,No,Yes
-Criminal,Domestic Violence,N/A,Yes,Yes,No,No,Yes
-PIL,Government Inaction,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,No,Yes,No,Yes
-Environmental,Illegal Mining,>1L,No,Yes,No,No,Yes
-Criminal,Dowry Harassment,>1L,No,Yes,Yes,No,Yes
-Consumer,Defective Product,>1L,Yes,Yes,Yes,No,Yes
-Civil,Eviction,<10k,Yes,Yes,No,No,Yes
-Criminal,Domestic Violence,>1L,Yes,Yes,No,No,Yes
-PIL,Right to Education,N/A,No,No,Yes,No,Yes
-Consumer,Non-Delivery,10k�1L,Yes,Yes,Yes,No,Yes
-PIL,Government Inaction,N/A,No,Yes,Yes,No,Yes
-Environmental,Illegal Mining,N/A,Yes,No,No,No,Yes
-Family,Maintenance,10k�1L,Yes,No,No,Yes,Yes
-Consumer,Non-Delivery,>1L,No,No,Yes,No,Yes
-Criminal,Domestic Violence,<10k,Yes,No,Yes,No,Yes
-Family,Child Custody,>1L,Yes,Yes,No,Yes,Yes
+Criminal,Theft,10k–1L,Yes,No,Yes,No,Yes
 Criminal,Domestic Violence,>1L,Yes,Yes,Yes,No,Yes
-Consumer,False Ads,10k�1L,No,Yes,Yes,No,Yes
-Consumer,Defective Product,>1L,Yes,No,Yes,No,Yes
-Environmental,Illegal Mining,>1L,No,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,No,Yes,Yes,No,Yes
-Environmental,Land Violation,<10k,Yes,No,No,No,Yes
-Criminal,Theft,N/A,No,Yes,No,No,Yes
-PIL,Right to Education,N/A,Yes,Yes,Yes,No,Yes
-Environmental,Pollution,N/A,No,Yes,No,No,Yes
-Family,Divorce,>1L,No,Yes,Yes,Yes,Yes
-Consumer,Defective Product,N/A,Yes,No,Yes,No,Yes
-Civil,Cheque Bounce,10k�1L,No,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,Yes,No,No,Yes
-Consumer,Non-Delivery,>1L,Yes,No,Yes,No,Yes
-Civil,Cheque Bounce,>1L,Yes,No,No,No,Yes
-PIL,RTI Delay,N/A,No,Yes,Yes,No,Yes
-Family,Child Custody,10k�1L,Yes,No,Yes,Yes,Yes
-Criminal,Domestic Violence,N/A,No,Yes,No,No,Yes
-Family,Child Custody,N/A,Yes,Yes,Yes,Yes,Yes
-Criminal,Dowry Harassment,10k�1L,No,Yes,No,No,Yes
-Consumer,False Ads,>1L,Yes,Yes,Yes,No,Yes
+Criminal,Domestic Violence,>1L,No,Yes,No,No,Yes
+Criminal,Dowry Harassment,,Yes,No,No,No,Yes
+Civil,Eviction,<10k,Yes,No,No,No,Yes
+Family,Divorce,10k–1L,Yes,Yes,No,Yes,Yes
+Civil,Eviction,,No,No,No,No,Yes
+Criminal,Dowry Harassment,<10k,Yes,No,Yes,No,Yes
+Criminal,Dowry Harassment,>1L,Yes,No,No,No,Yes
+Environmental,Pollution,10k–1L,No,Yes,Yes,No,Yes
+Civil,Cheque Bounce,10k–1L,Yes,Yes,Yes,No,Yes
+Criminal,Dowry Harassment,<10k,No,Yes,Yes,No,Yes
+Family,Child Custody,,Yes,No,Yes,Yes,Yes
+Consumer,Non-Delivery,,Yes,Yes,Yes,No,Yes
+Environmental,Illegal Mining,,No,Yes,Yes,No,Yes
+Civil,Eviction,,No,Yes,No,No,Yes
+Environmental,Illegal Mining,<10k,Yes,No,No,No,Yes
+Civil,Eviction,10k–1L,No,Yes,No,No,Yes
+Criminal,Dowry Harassment,,No,No,Yes,No,Yes
+Family,Child Custody,<10k,Yes,Yes,No,Yes,Yes
+Criminal,Theft,>1L,No,Yes,Yes,No,Yes
+Family,Maintenance,10k–1L,Yes,No,No,Yes,Yes
+Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
+Environmental,Pollution,,No,Yes,No,No,Yes
+Family,Child Custody,>1L,Yes,Yes,No,Yes,Yes
+PIL,RTI Delay,,No,No,Yes,No,Yes
+Consumer,False Ads,10k–1L,Yes,No,Yes,No,Yes
+Civil,Cheque Bounce,>1L,No,Yes,No,No,Yes
+Family,Maintenance,<10k,No,Yes,Yes,Yes,Yes
+Family,Child Custody,<10k,No,Yes,No,Yes,Yes
+Family,Divorce,>1L,No,No,No,Yes,Yes
+Civil,Property Dispute,>1L,No,No,No,No,No
+Consumer,False Ads,<10k,Yes,Yes,Yes,No,No
+Civil,Property Dispute,10k–1L,No,Yes,No,No,No
+Civil,Property Dispute,10k–1L,No,Yes,Yes,No,No
+Civil,Property Dispute,>1L,No,Yes,No,No,No
+Civil,Property Dispute,<10k,Yes,Yes,No,No,No
 Consumer,False Ads,<10k,No,Yes,Yes,No,No
-PIL,RTI Delay,N/A,No,No,No,No,Yes
-Civil,Cheque Bounce,<10k,No,No,No,No,Yes
-Civil,Cheque Bounce,10k�1L,No,Yes,No,No,Yes
-Family,Child Custody,N/A,Yes,Yes,Yes,Yes,Yes
-Civil,Property Dispute,10k�1L,Yes,No,Yes,No,No
-PIL,Right to Education,N/A,Yes,No,No,No,Yes
+Consumer,Non-Delivery,<10k,Yes,No,Yes,No,No
+Consumer,Defective Product,<10k,No,No,Yes,No,No
+Consumer,False Ads,<10k,No,No,Yes,No,No
 Consumer,Non-Delivery,<10k,No,No,Yes,No,No
-PIL,Government Inaction,N/A,Yes,No,Yes,No,Yes
-Family,Divorce,<10k,No,Yes,No,Yes,Yes
-PIL,RTI Delay,N/A,Yes,Yes,Yes,No,Yes
-Consumer,Non-Delivery,10k�1L,No,Yes,Yes,No,Yes
-PIL,RTI Delay,N/A,Yes,Yes,No,No,Yes
-Consumer,Non-Delivery,10k�1L,No,No,Yes,No,Yes
-Civil,Eviction,N/A,No,No,No,No,Yes
+Civil,Property Dispute,<10k,No,No,No,No,No
+Civil,Property Dispute,,No,Yes,No,No,No
+Civil,Property Dispute,<10k,No,Yes,No,No,No
+Civil,Property Dispute,<10k,Yes,Yes,Yes,No,No
+Consumer,Non-Delivery,<10k,No,Yes,Yes,No,No
+Civil,Property Dispute,<10k,Yes,No,No,No,No
+Consumer,False Ads,<10k,Yes,No,Yes,No,No
+Civil,Property Dispute,10k–1L,No,No,No,No,No
+Civil,Property Dispute,>1L,Yes,No,No,No,No
+Civil,Property Dispute,10k–1L,Yes,No,No,No,No
+Consumer,Defective Product,<10k,Yes,Yes,Yes,No,No
+Civil,Property Dispute,>1L,Yes,Yes,Yes,No,No
+Civil,Property Dispute,,No,No,No,No,No
+Civil,Property Dispute,,Yes,Yes,No,No,No
+Civil,Property Dispute,,Yes,No,Yes,No,No
+Civil,Property Dispute,<10k,No,Yes,Yes,No,No
+Civil,Property Dispute,>1L,Yes,Yes,No,No,No
+Consumer,Non-Delivery,<10k,Yes,Yes,Yes,No,No
+Consumer,Defective Product,<10k,Yes,No,Yes,No,No
+Civil,Property Dispute,<10k,Yes,No,Yes,No,No
+Civil,Property Dispute,>1L,Yes,No,Yes,No,No

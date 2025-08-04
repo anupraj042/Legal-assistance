@@ -3,47 +3,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legal Assistance Bot</title>
+  <title>Legal Assistance Bot - Case Analysis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-  <h2>Legal Assistance Bot</h2>
-  <form method="post" action="/predict">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <i class="fas fa-balance-scale"></i>
+        <span>LegalBot</span>
+      </a>
+      <a href="/" class="home-link">
+        <i class="fas fa-home"></i>
+        Back to Home
+      </a>
+    </div>
+  </nav>
+  
+  <div class="main-container">
+    <div class="header-section">
+      <h1><i class="fas fa-gavel"></i> Legal Case Analysis</h1>
+      <p>Fill out the form below to get an AI-powered analysis of your legal case</p>
+    </div>
+  <div class="form-container">
+    <form method="post" action="/predict" class="legal-form">
     <label>Case Type:</label>
     <select name="case_type">
-      <option value="Civil">Civil</option>
-      <option value="Criminal">Criminal</option>
-      <option value="Consumer">Consumer</option>
-      <option value="Family">Family</option>
-      <option value="Environmental">Environmental</option>
-      <option value="PIL">PIL</option>
+      <option value="Civil" {{ 'selected' if form_data and form_data.case_type == 'Civil' else '' }}>Civil</option>
+      <option value="Criminal" {{ 'selected' if form_data and form_data.case_type == 'Criminal' else '' }}>Criminal</option>
+      <option value="Consumer" {{ 'selected' if form_data and form_data.case_type == 'Consumer' else '' }}>Consumer</option>
+      <option value="Family" {{ 'selected' if form_data and form_data.case_type == 'Family' else '' }}>Family</option>
+      <option value="Environmental" {{ 'selected' if form_data and form_data.case_type == 'Environmental' else '' }}>Environmental</option>
+      <option value="PIL" {{ 'selected' if form_data and form_data.case_type == 'PIL' else '' }}>PIL</option>
+    </select><br>
+
+    <label>Sub-Type:</label>
+    <select name="sub_type">
+      <option value="Property Dispute" {{ 'selected' if form_data and form_data.sub_type == 'Property Dispute' else '' }}>Property Dispute</option>
+      <option value="Eviction" {{ 'selected' if form_data and form_data.sub_type == 'Eviction' else '' }}>Eviction</option>
+      <option value="Cheque Bounce" {{ 'selected' if form_data and form_data.sub_type == 'Cheque Bounce' else '' }}>Cheque Bounce</option>
+      <option value="Domestic Violence" {{ 'selected' if form_data and form_data.sub_type == 'Domestic Violence' else '' }}>Domestic Violence</option>
+      <option value="Dowry Harassment" {{ 'selected' if form_data and form_data.sub_type == 'Dowry Harassment' else '' }}>Dowry Harassment</option>
+      <option value="Theft" {{ 'selected' if form_data and form_data.sub_type == 'Theft' else '' }}>Theft</option>
+      <option value="Non-Delivery" {{ 'selected' if form_data and form_data.sub_type == 'Non-Delivery' else '' }}>Non-Delivery</option>
+      <option value="Defective Product" {{ 'selected' if form_data and form_data.sub_type == 'Defective Product' else '' }}>Defective Product</option>
+      <option value="False Ads" {{ 'selected' if form_data and form_data.sub_type == 'False Ads' else '' }}>False Ads</option>
+      <option value="Child Custody" {{ 'selected' if form_data and form_data.sub_type == 'Child Custody' else '' }}>Child Custody</option>
+      <option value="Divorce" {{ 'selected' if form_data and form_data.sub_type == 'Divorce' else '' }}>Divorce</option>
+      <option value="Maintenance" {{ 'selected' if form_data and form_data.sub_type == 'Maintenance' else '' }}>Maintenance</option>
+      <option value="Land Violation" {{ 'selected' if form_data and form_data.sub_type == 'Land Violation' else '' }}>Land Violation</option>
+      <option value="Pollution" {{ 'selected' if form_data and form_data.sub_type == 'Pollution' else '' }}>Pollution</option>
+      <option value="Illegal Mining" {{ 'selected' if form_data and form_data.sub_type == 'Illegal Mining' else '' }}>Illegal Mining</option>
+      <option value="Government Inaction" {{ 'selected' if form_data and form_data.sub_type == 'Government Inaction' else '' }}>Government Inaction</option>
+      <option value="Right to Education" {{ 'selected' if form_data and form_data.sub_type == 'Right to Education' else '' }}>Right to Education</option>
+      <option value="RTI Delay" {{ 'selected' if form_data and form_data.sub_type == 'RTI Delay' else '' }}>RTI Delay</option>
     </select><br>
 
     <label>Agreement Signed:</label>
-    <select name="agreement"><option>Yes</option><option>No</option></select><br>
+    <select name="agreement">
+      <option value="Yes" {{ 'selected' if form_data and form_data.agreement == 'Yes' else '' }}>Yes</option>
+      <option value="No" {{ 'selected' if form_data and form_data.agreement == 'No' else '' }}>No</option>
+    </select><br>
 
     <label>Notice Given:</label>
-    <select name="notice"><option>Yes</option><option>No</option></select><br>
+    <select name="notice">
+      <option value="Yes" {{ 'selected' if form_data and form_data.notice == 'Yes' else '' }}>Yes</option>
+      <option value="No" {{ 'selected' if form_data and form_data.notice == 'No' else '' }}>No</option>
+    </select><br>
 
     <label>Consumer Complaint:</label>
-    <select name="consumer"><option>Yes</option><option>No</option></select><br>
+    <select name="consumer">
+      <option value="Yes" {{ 'selected' if form_data and form_data.consumer == 'Yes' else '' }}>Yes</option>
+      <option value="No" {{ 'selected' if form_data and form_data.consumer == 'No' else '' }}>No</option>
+    </select><br>
 
     <label>Matrimonial Issue:</label>
-    <select name="matrimonial"><option>Yes</option><option>No</option></select><br>
+    <select name="matrimonial">
+      <option value="Yes" {{ 'selected' if form_data and form_data.matrimonial == 'Yes' else '' }}>Yes</option>
+      <option value="No" {{ 'selected' if form_data and form_data.matrimonial == 'No' else '' }}>No</option>
+    </select><br>
 
     <label>Value Involved:</label>
     <select name="value">
-      <option>&lt;10k</option>
-      <option>10k–1L</option>
-      <option>&gt;1L</option>
-      <option>N/A</option>
+      <option value="<10k" {{ 'selected' if form_data and form_data.value == '<10k' else '' }}>&lt;10k</option>
+      <option value="10k–1L" {{ 'selected' if form_data and form_data.value == '10k–1L' else '' }}>10k–1L</option>
+      <option value=">1L" {{ 'selected' if form_data and form_data.value == '>1L' else '' }}>&gt;1L</option>
+      <option value="N/A" {{ 'selected' if form_data and form_data.value == 'N/A' else '' }}>N/A</option>
     </select><br>
 
-    <input type="submit" value="Check Legal Issue">
-  </form>
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-search"></i>
+        Analyze Legal Case
+      </button>
+    </form>
+  </div>
 
   {% if result %}
-    <div class="result">Prediction: <strong>{{ result }}</strong></div>
+    <div class="results-section">
+      <div class="prediction-result">
+        <div class="result-header">
+          <i class="fas fa-{{ 'check-circle' if result == 'Yes' else 'times-circle' }}"></i>
+          <h2>Legal Assessment: <span class="{{ 'positive' if result == 'Yes' else 'negative' }}">{{ result }}</span></h2>
+        </div>
+        <p class="result-description">
+          {% if result == "Yes" %}
+            Your case appears to have legal merit. Based on the information provided, you may have grounds for legal action.
+          {% else %}
+            Your case may have limited legal merit. Consider alternative dispute resolution methods or seek a second legal opinion.
+          {% endif %}
+        </p>
+      </div>
+
+      {% if guidance %}
+        <div class="suggestions-container">
+          <h3><i class="fas fa-lightbulb"></i> Personalized Legal Guidance</h3>
+          
+          <div class="guidance-card">
+            <div class="card-header">
+              <i class="fas fa-gavel"></i>
+              <h4>Recommended Next Steps</h4>
+            </div>
+            <p class="guidance-text">{{ guidance }}</p>
+          </div>
+
+          <div class="disclaimer">
+            <i class="fas fa-info-circle"></i>
+            <p><strong>Disclaimer:</strong> This analysis is for informational purposes only and should not replace professional legal advice. Always consult with a qualified lawyer for specific legal matters.</p>
+          </div>
+
+          <div class="action-buttons">
+            <button id="printBtn" class="btn btn-secondary">
+              <i class="fas fa-print"></i>
+              Print Report
+            </button>
+            <button id="newAnalysisBtn" class="btn btn-primary">
+              <i class="fas fa-redo"></i>
+              New Analysis
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    </div>
   {% endif %}
+  </div>
+
+  <script>
+    // Add form validation
+    document.querySelector('.legal-form').addEventListener('submit', function(e) {
+      const submitBtn = document.querySelector('.submit-btn');
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+      submitBtn.disabled = true;
+    });
+
+    // Print functionality
+    {% if result %}
+      document.getElementById('printBtn').addEventListener('click', function() {
+        // Hide navigation and buttons for printing
+        const navbar = document.querySelector('.navbar');
+        const actionButtons = document.querySelector('.action-buttons');
+        
+        navbar.style.display = 'none';
+        actionButtons.style.display = 'none';
+        
+        // Print the page
+        window.print();
+        
+        // Restore elements after printing
+        setTimeout(() => {
+          navbar.style.display = 'block';
+          actionButtons.style.display = 'flex';
+        }, 1000);
+      });
+
+      // New Analysis functionality
+      document.getElementById('newAnalysisBtn').addEventListener('click', function() {
+        // Show confirmation dialog
+        if (confirm('Are you sure you want to start a new analysis? This will clear the current results.')) {
+          window.location.href = '/legal-assistant';
+        }
+      });
+
+      // Smooth scroll to results
+      document.querySelector('.results-section').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    {% endif %}
+  </script>
 </body>
 </html>
