@@ -231,14 +231,20 @@ class CandidateElimination:
             
             general_coverage = len(matching_general) / len(self.general_hypotheses) if self.general_hypotheses else 0
             
-            # Enhanced decision logic
-            if specific_covers and general_coverage > 0.5:
+            # Enhanced decision logic with pattern-based scoring
+            pattern_score = self.calculate_pattern_score(example)
+            
+            # Combine different scoring methods
+            if specific_covers and general_coverage > 0.5 and pattern_score > 0.7:
                 prediction = "Yes"
                 confidence = "High"
-            elif specific_covers or general_coverage > 0.3:
+            elif (specific_covers and general_coverage > 0.3) or pattern_score > 0.6:
                 prediction = "Yes"
                 confidence = "Medium"
-            elif general_coverage > 0.1:
+            elif general_coverage > 0.2 or pattern_score > 0.4:
+                prediction = "Yes"
+                confidence = "Low"
+            elif general_coverage > 0.1 or pattern_score > 0.2:
                 prediction = "Maybe"
                 confidence = "Medium"
             else:
@@ -253,9 +259,64 @@ class CandidateElimination:
         except Exception as e:
             return "Error", f"Prediction failed: {str(e)}"
     
+    def calculate_pattern_score(self, example):
+        """Calculate a pattern-based score for legal action likelihood"""
+        score = 0.0
+        case_type = example[0] if example else None
+        sub_type = example[1] if len(example) > 1 else None
+        value = example[2] if len(example) > 2 else None
+        agreement = example[3] if len(example) > 3 else None
+        notice = example[4] if len(example) > 4 else None
+        consumer = example[5] if len(example) > 5 else None
+        matrimonial = example[6] if len(example) > 6 else None
+        
+        # Case type scoring (based on training data patterns)
+        case_type_scores = {
+            'Criminal': 0.9,  # Almost always legal action needed
+            'Environmental': 0.8,  # Usually legal action needed
+            'PIL': 0.8,  # Usually legal action needed
+            'Family': 0.7,  # Often legal action needed
+            'Civil': 0.4,  # Mixed results
+            'Consumer': 0.3  # Often resolved without legal action
+        }
+        
+        if case_type in case_type_scores:
+            score += case_type_scores[case_type] * 0.4
+        
+        # Sub-type specific patterns
+        high_action_subtypes = ['Domestic Violence', 'Dowry Harassment', 'Theft', 'Pollution', 'Illegal Mining']
+        if sub_type in high_action_subtypes:
+            score += 0.2
+        
+        # Value-based scoring
+        if value == '>1L':
+            score += 0.15
+        elif value == '10k–1L':
+            score += 0.1
+        elif value == '<10k':
+            score += 0.05
+        
+        # Agreement and notice patterns
+        if agreement == 'Yes':
+            score += 0.1
+        if notice == 'Yes':
+            score += 0.1
+        
+        # Consumer complaint factor
+        if consumer == 'Yes':
+            score += 0.05
+        
+        # Matrimonial issue factor
+        if matrimonial == 'Yes':
+            score += 0.1
+        
+        return min(score, 1.0)  # Cap at 1.0
+    
     def generate_guidance(self, case_data, prediction, confidence, matching_patterns=None):
         """Generate personalized legal guidance"""
         case_type = case_data[0] if case_data else "Unknown"
+        sub_type = case_data[1] if len(case_data) > 1 else "Unknown"
+        value = case_data[2] if len(case_data) > 2 else None
         
         guidance_map = {
             "Civil": "Consider consulting a civil lawyer and filing a suit in district court.",
@@ -268,6 +329,25 @@ class CandidateElimination:
         
         base_guidance = guidance_map.get(case_type, "Consult a legal advisor for next steps.")
         
+        # Add specific sub-type guidance
+        specific_guidance = ""
+        if case_type == "Criminal":
+            if sub_type in ["Domestic Violence", "Dowry Harassment"]:
+                specific_guidance = " Consider contacting women's helpline (1091) for immediate support."
+            elif sub_type == "Theft":
+                specific_guidance = " Gather evidence and witness statements before filing FIR."
+        elif case_type == "Consumer":
+            specific_guidance = " Keep all receipts and communication records as evidence."
+        elif case_type == "Environmental":
+            specific_guidance = " Document environmental damage with photos and videos."
+        
+        # Add value-based insights
+        value_insight = ""
+        if value == '>1L':
+            value_insight = " High-value case - consider hiring experienced counsel."
+        elif value == '10k–1L':
+            value_insight = " Medium-value case - cost-benefit analysis recommended."
+        
         # Add pattern-based insights
         pattern_insight = ""
         if matching_patterns:
@@ -275,12 +355,16 @@ class CandidateElimination:
             if pattern_count > 0:
                 pattern_insight = f" (Matches {pattern_count} legal patterns)"
         
+        # Calculate pattern score for additional context
+        pattern_score = self.calculate_pattern_score(case_data)
+        score_context = f" [Pattern Score: {pattern_score:.2f}]"
+        
         if prediction == "Yes":
-            return f"Legal action recommended ({confidence} confidence){pattern_insight}. {base_guidance}"
+            return f"Legal action recommended ({confidence} confidence){pattern_insight}{score_context}. {base_guidance}{specific_guidance}{value_insight}"
         elif prediction == "Maybe":
-            return f"Legal action may be needed ({confidence} confidence){pattern_insight}. {base_guidance} Consider getting a second opinion."
+            return f"Legal action may be needed ({confidence} confidence){pattern_insight}{score_context}. {base_guidance} Consider getting a second opinion.{specific_guidance}{value_insight}"
         else:
-            return f"Legal action may not be necessary ({confidence} confidence). Try mediation or informal resolution first."
+            return f"Legal action may not be necessary ({confidence} confidence){score_context}. Try mediation or informal resolution first. If issues persist, {base_guidance.lower()}{specific_guidance}"
     
     def get_model_summary(self):
         """Get a summary of the trained model"""
