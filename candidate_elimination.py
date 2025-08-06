@@ -7,6 +7,27 @@ from training data and make predictions about whether legal action is needed.
 import pandas as pd
 import copy
 
+def load_cases(path):
+    return pd.read_csv(path)
+
+def predict_legal_issue(case_dict, dataset):
+    # Match closest row from dataset (simulate CE for now)
+    for _, row in dataset.iterrows():
+        if all(str(row.get(k, "")).lower() == v.lower() for k, v in case_dict.items() if k in row):
+            return row["Legal Issue"], get_guidance(row["Case Type"])
+    return "No", "Try mediation or informal resolution."
+
+def get_guidance(case_type):
+    guidance_map = {
+        "Civil": "Consult a civil lawyer or file a civil suit.",
+        "Criminal": "Approach the police or file an FIR.",
+        "Consumer": "File a case at your local Consumer Court.",
+        "Family": "Consult a family court advocate.",
+        "Environmental": "File a complaint with NGT.",
+        "PIL": "File a PIL in High Court or Supreme Court."
+    }
+    return guidance_map.get(case_type, "Consult a legal expert.")
+
 class CandidateElimination:
     def __init__(self):
         self.attributes = [
@@ -203,7 +224,7 @@ class CandidateElimination:
             # PIL cases are usually legal issues
             ['PIL', '?', '?', '?', '?', '?', '?'],
             # High-value civil cases with agreements
-            ['Civil', '?', '>1L', 'Yes', '?', '?', '?'],
+            ['Civil', '?', '>50k', 'Yes', '?', '?', '?'],
             # Consumer cases with complaints
             ['Consumer', '?', '?', '?', '?', 'Yes', '?']
         ]
@@ -289,9 +310,9 @@ class CandidateElimination:
             score += 0.2
         
         # Value-based scoring
-        if value == '>1L':
+        if value == '>50k' or value == '>1L':
             score += 0.15
-        elif value == '10k–1L':
+        elif value == '10k-50k' or value == '10k–1L':
             score += 0.1
         elif value == '<10k':
             score += 0.05
@@ -343,9 +364,9 @@ class CandidateElimination:
         
         # Add value-based insights
         value_insight = ""
-        if value == '>1L':
+        if value == '>50k' or value == '>1L':
             value_insight = " High-value case - consider hiring experienced counsel."
-        elif value == '10k–1L':
+        elif value == '10k-50k' or value == '10k–1L':
             value_insight = " Medium-value case - cost-benefit analysis recommended."
         
         # Add pattern-based insights
@@ -390,7 +411,7 @@ ce_model = CandidateElimination()
 
 def train_model():
     """Train the candidate elimination model"""
-    return ce_model.train('d:/Legal-assistance/synthetic_legal_cases.csv')
+    return ce_model.train('d:/Legal-assistance/minimal_legal_cases.csv')
 
 def predict(case_data):
     """Make prediction using the trained model"""

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant Chatbot - Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .start-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .start-btn:hover {
+            background: #0056b3;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .bot-message {
+            background: #e9ecef;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            text-align: right;
+        }
+        .input-area {
+            margin: 20px 0;
+        }
+        .dropdown, .btn {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+        #loading {
+            display: none;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Legal Assistant Chatbot</h1>
+        <div id="messages">
+            <div class="message bot-message">
+                <strong>Welcome!</strong> I'm your Legal Assistant Bot. Click "Start Chat" to begin analyzing your legal case.
+            </div>
+        </div>
+        
+        <div id="inputArea">
+            <button id="startBtn" class="start-btn">Start Chat</button>
+        </div>
+        
+        <div id="loading">Bot is typing...</div>
+        
+        <div style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+            <strong>Debug Info:</strong>
+            <div id="debug"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionId = null;
+        let sessionActive = false;
+        
+        function log(message) {
+            console.log(message);
+            const debug = document.getElementById('debug');
+            debug.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        function addMessage(message, isBot = true) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (isBot ? 'bot-message' : 'user-message');
+            messageDiv.innerHTML = message;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        async function startChat() {
+            log('Start chat function called');
+            showLoading();
+            
+            try {
+                log('Sending POST request to /chat/start');
+                const response = await fetch('/chat/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                log('Response status: ' + response.status);
+                
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+                
+                const data = await response.json();
+                log('Response received: ' + JSON.stringify(data));
+                
+                hideLoading();
+                sessionActive = true;
+                
+                addMessage('<strong>Bot:</strong> ' + data.message);
+                addMessage('<strong>Question:</strong> ' + data.question);
+                
+                showQuestion(data.question_type, data.options, data.question_id);
+                
+            } catch (error) {
+                log('Error: ' + error.message);
+                hideLoading();
+                addMessage('<strong>Error:</strong> ' + error.message);
+            }
+        }
+        
+        function showQuestion(questionType, options, questionId) {
+            currentQuestionId = questionId;
+            const inputArea = document.getElementById('inputArea');
+            
+            if (questionType === 'dropdown') {
+                inputArea.innerHTML = `
+                    <select id="answerSelect" class="dropdown">
+                        <option value="">Select an option...</option>
+                        ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                    <button onclick="submitAnswer()" class="btn">Submit</button>
+                `;
+            } else if (questionType === 'yesno') {
+                inputArea.innerHTML = `
+                    <button onclick="submitAnswer('Yes')" class="btn">Yes</button>
+                    <button onclick="submitAnswer('No')" class="btn">No</button>
+                `;
+            }
+        }
+        
+        async function submitAnswer(answer = null) {
+            if (!answer) {
+                const select = document.getElementById('answerSelect');
+                answer = select ? select.value : '';
+            }
+            
+            if (!answer) {
+                alert('Please select an answer');
+                return;
+            }
+            
+            log('Submitting answer: ' + answer);
+            addMessage('<strong>You:</strong> ' + answer, false);
+            showLoading();
+            
+            try {
+                const response = await fetch('/chat/answer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        answer: answer,
+                        question_id: currentQuestionId
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+                
+                const data = await response.json();
+                log('Answer response: ' + JSON.stringify(data));
+                
+                hideLoading();
+                
+                if (data.final_result) {
+                    addMessage('<strong>Analysis Complete!</strong>');
+                    addMessage('<strong>Prediction:</strong> ' + data.prediction);
+                    addMessage('<strong>Guidance:</strong> ' + data.guidance);
+                    
+                    document.getElementById('inputArea').innerHTML = `
+                        <button onclick="resetChat()" class="btn">Start New Chat</button>
+                    `;
+                } else {
+                    addMessage('<strong>Bot:</strong> ' + data.message);
+                    addMessage('<strong>Next Question:</strong> ' + data.question);
+                    showQuestion(data.question_type, data.options, data.question_id);
+                }
+                
+            } catch (error) {
+                log('Submit error: ' + error.message);
+                hideLoading();
+                addMessage('<strong>Error:</strong> ' + error.message);
+            }
+        }
+        
+        async function resetChat() {
+            log('Resetting chat');
+            try {
+                await fetch('/chat/reset', { method: 'POST' });
+                location.reload();
+            } catch (error) {
+                log('Reset error: ' + error.message);
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            log('DOM loaded');
+            const startBtn = document.getElementById('startBtn');
+            if (startBtn) {
+                log('Start button found, attaching event listener');
+                startBtn.addEventListener('click', function() {
+                    log('Start button clicked via event listener');
+                    startChat();
+                });
+                
+                // Also add onclick as backup
+                startBtn.onclick = function() {
+                    log('Start button clicked via onclick');
+                    startChat();
+                };
+            } else {
+                log('ERROR: Start button not found!');
+            }
+        });
+        
+        log('Script loaded');
+    </script>
+</body>
+</html>

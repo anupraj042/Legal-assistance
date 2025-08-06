@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant Chatbot</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="bot-avatar">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="bot-info">
+                    <h2>Legal Assistant Bot</h2>
+                    <p class="status">Online • Ready to help</p>
+                </div>
+                <div class="header-actions">
+                    <button id="resetBtn" class="reset-btn" title="Reset Chat">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <a href="/" class="home-btn" title="Go Home">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <div class="bot-avatar-small">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="message-content">
+                    <h3>Welcome to Legal Assistant Bot! 👋</h3>
+                    <p>I'm here to help you understand your legal situation. I'll ask you a few questions about your case to provide personalized guidance.</p>
+                    <p><strong>Click "Start Chat" to begin!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area" id="chatInputArea">
+            <div class="input-container">
+                <button id="startChatBtn" class="start-chat-btn" onclick="handleStartChat()">
+                    <i class="fas fa-play"></i>
+                    Start Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p>Bot is typing...</p>
+        </div>
+    </div>
+
+    <script>
+        class LegalChatbot {
+            constructor() {
+                this.chatMessages = document.getElementById('chatMessages');
+                this.chatInputArea = document.getElementById('chatInputArea');
+                this.loadingIndicator = document.getElementById('loadingIndicator');
+                this.startChatBtn = document.getElementById('startChatBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                
+                this.currentQuestionId = null;
+                this.isWaitingForResponse = false;
+                
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                if (this.startChatBtn) {
+                    this.startChatBtn.addEventListener('click', () => this.startChat());
+                } else {
+                    console.error('Start chat button not found');
+                }
+                
+                if (this.resetBtn) {
+                    this.resetBtn.addEventListener('click', () => this.resetChat());
+                } else {
+                    console.error('Reset button not found');
+                }
+            }
+
+            async startChat() {
+                console.log('Start chat button clicked');
+                this.showLoading();
+                
+                try {
+                    console.log('Sending request to /chat/start');
+                    const response = await fetch('/chat/start', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    
+                    console.log('Response status:', response.status);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('Response data:', data);
+                    this.hideLoading();
+                    
+                    // Clear welcome message
+                    this.chatMessages.innerHTML = '';
+                    
+                    // Add bot message
+                    this.addBotMessage(data.message);
+                    
+                    // Show question
+                    this.showQuestion(data.question, data.question_type, data.options, data.question_id);
+                    
+                } catch (error) {
+                    console.error('Error starting chat:', error);
+                    this.hideLoading();
+                    this.addBotMessage("Sorry, I'm having trouble connecting. Please try again. Error: " + error.message);
+                }
+            }
+
+            async sendAnswer(answer, questionId) {
+                if (this.isWaitingForResponse) return;
+                
+                this.isWaitingForResponse = true;
+                this.addUserMessage(answer);
+                this.showLoading();
+                
+                try {
+                    const response = await fetch('/chat/answer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            answer: answer,
+                            question_id: questionId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    this.hideLoading();
+                    
+                    if (data.final_result) {
+                        this.showFinalResult(data);
+                    } else {
+                        this.addBotMessage(data.message);
+                        this.showQuestion(data.question, data.question_type, data.options, data.question_id);
+                    }
+                    
+                } catch (error) {
+                    this.hideLoading();
+                    this.addBotMessage("Sorry, something went wrong. Please try again.");
+                } finally {
+                    this.isWaitingForResponse = false;
+                }
+            }
+
+            showQuestion(question, questionType, options, questionId) {
+                this.currentQuestionId = questionId;
+                
+                // Add question message
+                this.addBotMessage(question);
+                
+                // Create input based on question type
+                if (questionType === 'dropdown') {
+                    this.createDropdownInput(options);
+                } else if (questionType === 'yesno') {
+                    this.createYesNoInput();
+                }
+            }
+
+            createDropdownInput(options) {
+                const inputContainer = document.createElement('div');
+                inputContainer.className = 'input-container dropdown-container';
+                
+                const select = document.createElement('select');
+                select.className = 'dropdown-select';
+                select.innerHTML = '<option value="">Select an option...</option>';
+                
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    select.appendChild(optionElement);
+                });
+                
+                const submitBtn = document.createElement('button');
+                submitBtn.className = 'submit-btn';
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+                submitBtn.disabled = true;
+                
+                select.addEventListener('change', () => {
+                    submitBtn.disabled = !select.value;
+                });
+                
+                submitBtn.addEventListener('click', () => {
+                    if (select.value) {
+                        this.sendAnswer(select.value, this.currentQuestionId);
+                        inputContainer.remove();
+                    }
+                });
+                
+                inputContainer.appendChild(select);
+                inputContainer.appendChild(submitBtn);
+                this.chatInputArea.innerHTML = '';
+                this.chatInputArea.appendChild(inputContainer);
+            }
+
+            createYesNoInput() {
+                const inputContainer = document.createElement('div');
+                inputContainer.className = 'input-container yesno-container';
+                
+                const yesBtn = document.createElement('button');
+                yesBtn.className = 'yesno-btn yes-btn';
+                yesBtn.innerHTML = '<i class="fas fa-check"></i> Yes';
+                yesBtn.addEventListener('click', () => {
+                    this.sendAnswer('Yes', this.currentQuestionId);
+                    inputContainer.remove();
+                });
+                
+                const noBtn = document.createElement('button');
+                noBtn.className = 'yesno-btn no-btn';
+                noBtn.innerHTML = '<i class="fas fa-times"></i> No';
+                noBtn.addEventListener('click', () => {
+                    this.sendAnswer('No', this.currentQuestionId);
+                    inputContainer.remove();
+                });
+                
+                inputContainer.appendChild(yesBtn);
+                inputContainer.appendChild(noBtn);
+                this.chatInputArea.innerHTML = '';
+                this.chatInputArea.appendChild(inputContainer);
+            }
+
+            showFinalResult(data) {
+                // Add final message
+                this.addBotMessage(data.message);
+                
+                // Create result card
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                
+                const predictionClass = data.prediction.toLowerCase() === 'yes' ? 'positive' : 
+                                      data.prediction.toLowerCase() === 'maybe' ? 'neutral' : 'negative';
+                
+                resultCard.innerHTML = `
+                    <div class="result-header">
+                        <h3>Legal Analysis Result</h3>
+                        <div class="prediction ${predictionClass}">
+                            <i class="fas ${data.prediction.toLowerCase() === 'yes' ? 'fa-check-circle' : 
+                                           data.prediction.toLowerCase() === 'maybe' ? 'fa-question-circle' : 'fa-times-circle'}"></i>
+                            Legal Issue: ${data.prediction}
+                        </div>
+                    </div>
+                    
+                    <div class="case-summary">
+                        <h4><i class="fas fa-clipboard-list"></i> Case Summary</h4>
+                        <div class="summary-grid">
+                            ${Object.entries(data.case_summary).map(([key, value]) => `
+                                <div class="summary-item">
+                                    <span class="label">${key}:</span>
+                                    <span class="value">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="guidance">
+                        <h4><i class="fas fa-lightbulb"></i> Recommendation</h4>
+                        <p>${data.guidance}</p>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="action-btn primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print Result
+                        </button>
+                        <button class="action-btn secondary" onclick="chatbot.resetChat()">
+                            <i class="fas fa-redo"></i> New Analysis
+                        </button>
+                    </div>
+                `;
+                
+                this.addCustomMessage(resultCard);
+                
+                // Clear input area
+                this.chatInputArea.innerHTML = `
+                    <div class="input-container">
+                        <button class="start-chat-btn" onclick="chatbot.resetChat()">
+                            <i class="fas fa-redo"></i>
+                            Start New Chat
+                        </button>
+                    </div>
+                `;
+            }
+
+            addBotMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot-message';
+                messageDiv.innerHTML = `
+                    <div class="bot-avatar-small">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>${message}</p>
+                        <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+                    </div>
+                `;
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            addUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user-message';
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        <p>${message}</p>
+                        <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+                    </div>
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                `;
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            addCustomMessage(element) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot-message custom-message';
+                messageDiv.innerHTML = `
+                    <div class="bot-avatar-small">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                `;
+                messageDiv.appendChild(element);
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            showLoading() {
+                this.loadingIndicator.style.display = 'flex';
+                this.scrollToBottom();
+            }
+
+            hideLoading() {
+                this.loadingIndicator.style.display = 'none';
+            }
+
+            scrollToBottom() {
+                setTimeout(() => {
+                    this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+                }, 100);
+            }
+
+            async resetChat() {
+                try {
+                    await fetch('/chat/reset', { method: 'POST' });
+                    
+                    // Reset UI
+                    this.chatMessages.innerHTML = `
+                        <div class="welcome-message">
+                            <div class="bot-avatar-small">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="message-content">
+                                <h3>Welcome back! 👋</h3>
+                                <p>Ready to analyze another legal case? Click "Start Chat" to begin a new conversation.</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    this.chatInputArea.innerHTML = `
+                        <div class="input-container">
+                            <button id="startChatBtn" class="start-chat-btn">
+                                <i class="fas fa-play"></i>
+                                Start Chat
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Re-attach event listener
+                    document.getElementById('startChatBtn').addEventListener('click', () => this.startChat());
+                    
+                    this.currentQuestionId = null;
+                    this.isWaitingForResponse = false;
+                    
+                } catch (error) {
+                    console.error('Error resetting chat:', error);
+                }
+            }
+        }
+
+        // Global function for inline onclick handler
+        function handleStartChat() {
+            console.log('Inline onclick handler called');
+            if (window.chatbot) {
+                window.chatbot.startChat();
+            } else {
+                console.error('Chatbot not initialized, creating new instance');
+                window.chatbot = new LegalChatbot();
+                window.chatbot.startChat();
+            }
+        }
+
+        // Initialize chatbot when page loads
+        let chatbot;
+        
+        function initializeChatbot() {
+            console.log('Initializing chatbot');
+            try {
+                chatbot = new LegalChatbot();
+                window.chatbot = chatbot; // Make it globally accessible
+                console.log('Chatbot initialized successfully');
+                
+                // Additional event listener attachment
+                const startBtn = document.getElementById('startChatBtn');
+                if (startBtn) {
+                    console.log('Attaching additional event listener to start button');
+                    startBtn.addEventListener('click', (e) => {
+                        console.log('Additional event listener triggered');
+                        if (chatbot) {
+                            chatbot.startChat();
+                        }
+                    });
+                } else {
+                    console.error('Start button not found during initialization');
+                }
+            } catch (error) {
+                console.error('Error initializing chatbot:', error);
+            }
+        }
+        
+        // Multiple initialization attempts
+        document.addEventListener('DOMContentLoaded', initializeChatbot);
+        
+        // Fallback initialization
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeChatbot);
+        } else {
+            initializeChatbot();
+        }
+        
+        // Additional fallback after a short delay
+        setTimeout(() => {
+            if (!window.chatbot) {
+                console.log('Fallback initialization after timeout');
+                initializeChatbot();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

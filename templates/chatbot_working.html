@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-bubble {
+            background: #e9ecef;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-bubble {
+            background: #007bff;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .start-btn, .submit-btn, .yes-btn, .no-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover, .submit-btn:hover, .yes-btn:hover, .no-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .result-summary {
+            background: #f8f9fa;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .result-summary h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .case-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .case-detail {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1><i class="fas fa-balance-scale"></i> Legal Assistant Chatbot</h1>
+            <p>Get personalized legal guidance through our AI-powered conversation</p>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-bubble">
+                    <strong>Welcome!</strong> I'm your Legal Assistant Bot. I'll ask you a series of questions to understand your legal situation and provide personalized guidance.
+                    <br><br>
+                    Click "Start Chat" to begin analyzing your case.
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input" id="chatInput">
+            <button class="start-btn" onclick="startChat()">
+                <i class="fas fa-play"></i> Start Chat
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Bot is thinking...
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = null;
+        let chatData = {};
+        let questionFlow = [
+            { id: 'case_type', question: 'What type of legal case do you have?', type: 'dropdown', options: ['Civil', 'Criminal', 'Consumer', 'Family', 'Environmental', 'PIL'] },
+            { id: 'sub_type', question: 'What is the specific sub-type of your case?', type: 'dropdown', options: [] },
+            { id: 'value', question: 'What is the monetary value involved in your case?', type: 'dropdown', options: ['<10k', '10k-50k', '>50k'] },
+            { id: 'agreement', question: 'Was there any agreement or contract signed?', type: 'yesno' },
+            { id: 'notice', question: 'Was any legal notice given to the other party?', type: 'yesno' },
+            { id: 'consumer', question: 'Is this related to a consumer complaint?', type: 'yesno' },
+            { id: 'matrimonial', question: 'Is this a matrimonial (marriage-related) issue?', type: 'yesno' }
+        ];
+        let currentQuestionIndex = 0;
+
+        const subTypeOptions = {
+            'Civil': ['Property Dispute', 'Eviction', 'Cheque Bounce', 'Contract Dispute', 'Defamation'],
+            'Criminal': ['Theft', 'Domestic Violence', 'Dowry Harassment', 'Fraud', 'Assault'],
+            'Consumer': ['Non-Delivery', 'False Ads', 'Defective Product', 'Service Issue', 'Overcharging'],
+            'Family': ['Divorce', 'Child Custody', 'Maintenance', 'Property Settlement', 'Adoption'],
+            'Environmental': ['Pollution', 'Illegal Mining', 'Land Violation', 'Waste Disposal', 'Deforestation'],
+            'PIL': ['RTI Delay', 'Public Welfare', 'Government Negligence', 'Corruption', 'Rights Violation']
+        };
+
+        function addMessage(text, isBot = true) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isBot ? 'bot' : 'user'}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function startChat() {
+            addMessage("Great! Let's start analyzing your legal case. I'll ask you 7 questions to understand your situation better.");
+            currentQuestionIndex = 0;
+            chatData = {};
+            askNextQuestion();
+        }
+
+        function askNextQuestion() {
+            if (currentQuestionIndex >= questionFlow.length) {
+                processResults();
+                return;
+            }
+
+            const question = questionFlow[currentQuestionIndex];
+            currentQuestion = question;
+
+            // Update sub-type options based on case type
+            if (question.id === 'sub_type' && chatData.case_type) {
+                question.options = subTypeOptions[chatData.case_type] || [];
+            }
+
+            addMessage(`<strong>Question ${currentQuestionIndex + 1}/7:</strong><br>${question.question}`);
+            showQuestionInput(question);
+        }
+
+        function showQuestionInput(question) {
+            const inputDiv = document.getElementById('chatInput');
+            
+            if (question.type === 'dropdown') {
+                inputDiv.innerHTML = `
+                    <select class="dropdown" id="answerSelect">
+                        <option value="">Select an option...</option>
+                        ${question.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                `;
+            } else if (question.type === 'yesno') {
+                inputDiv.innerHTML = `
+                    <button class="yes-btn" onclick="submitAnswer('Yes')">Yes</button>
+                    <button class="no-btn" onclick="submitAnswer('No')">No</button>
+                `;
+            }
+        }
+
+        function submitAnswer(answer = null) {
+            if (!answer) {
+                const select = document.getElementById('answerSelect');
+                answer = select ? select.value : '';
+            }
+
+            if (!answer) {
+                alert('Please select an answer before continuing.');
+                return;
+            }
+
+            // Store the answer
+            chatData[currentQuestion.id] = answer;
+            
+            // Show user's answer
+            addMessage(`<strong>Your answer:</strong> ${answer}`, false);
+            
+            // Move to next question
+            currentQuestionIndex++;
+            
+            // Small delay for better UX
+            setTimeout(() => {
+                askNextQuestion();
+            }, 500);
+        }
+
+        async function processResults() {
+            showLoading();
+            addMessage("Analyzing your case using our AI legal assistant...");
+
+            try {
+                // Send data to backend for prediction
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(chatData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to get prediction');
+                }
+
+                const result = await response.json();
+                hideLoading();
+                
+                showResults(result);
+
+            } catch (error) {
+                hideLoading();
+                addMessage("Sorry, there was an error processing your case. Please try again.");
+                console.error('Error:', error);
+            }
+        }
+
+        function showResults(result) {
+            const prediction = result.prediction;
+            const confidence = result.confidence || 'Medium';
+            const guidance = result.guidance || 'Please consult with a legal professional for detailed advice.';
+
+            let resultColor = prediction === 'Yes' ? '#28a745' : prediction === 'Maybe' ? '#ffc107' : '#6c757d';
+            let resultText = prediction === 'Yes' ? 'Legal Action Recommended' : 
+                           prediction === 'Maybe' ? 'Uncertain - Review Needed' : 'Legal Action Not Recommended';
+
+            const resultHtml = `
+                <div class="result-summary">
+                    <h3 style="color: ${resultColor};">
+                        <i class="fas fa-gavel"></i> Analysis Complete: ${resultText}
+                    </h3>
+                    <p><strong>Confidence Level:</strong> ${confidence}</p>
+                    <p><strong>Legal Guidance:</strong> ${guidance}</p>
+                    
+                    <h4>Your Case Summary:</h4>
+                    <div class="case-details">
+                        <div class="case-detail"><strong>Case Type:</strong> ${chatData.case_type}</div>
+                        <div class="case-detail"><strong>Sub-Type:</strong> ${chatData.sub_type}</div>
+                        <div class="case-detail"><strong>Value Involved:</strong> ${chatData.value}</div>
+                        <div class="case-detail"><strong>Agreement Signed:</strong> ${chatData.agreement}</div>
+                        <div class="case-detail"><strong>Notice Given:</strong> ${chatData.notice}</div>
+                        <div class="case-detail"><strong>Consumer Complaint:</strong> ${chatData.consumer}</div>
+                        <div class="case-detail"><strong>Matrimonial Issue:</strong> ${chatData.matrimonial}</div>
+                    </div>
+                </div>
+            `;
+
+            addMessage(resultHtml);
+
+            // Show restart option
+            document.getElementById('chatInput').innerHTML = `
+                <button class="start-btn" onclick="resetChat()">
+                    <i class="fas fa-redo"></i> Start New Analysis
+                </button>
+                <button class="reset-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Results
+                </button>
+            `;
+        }
+
+        function resetChat() {
+            document.getElementById('chatMessages').innerHTML = `
+                <div class="message bot">
+                    <div class="message-bubble">
+                        <strong>Welcome back!</strong> Ready to analyze another legal case? Click "Start Chat" to begin a new conversation.
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('chatInput').innerHTML = `
+                <button class="start-btn" onclick="startChat()">
+                    <i class="fas fa-play"></i> Start Chat
+                </button>
+            `;
+            
+            currentQuestionIndex = 0;
+            chatData = {};
+            currentQuestion = null;
+        }
+
+        // Initialize
+        console.log('Legal Assistant Chatbot loaded and ready!');
+    </script>
+</body>
+</html>

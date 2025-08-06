@@ -5,11 +5,14 @@ A sophisticated legal assistance system that uses the **Candidate Elimination Al
 ## 🎯 Features
 
 ### Core Functionality
+- **Conversational Chatbot**: Interactive Q&A interface for natural case consultation
+- **Quick Form Analysis**: Traditional form-based case evaluation
 - **Intelligent Case Classification**: Uses Candidate Elimination algorithm to learn legal patterns
 - **Personalized Legal Guidance**: Provides specific advice based on case type and circumstances
-- **Web-based Interface**: User-friendly Flask web application
+- **Web-based Interface**: User-friendly Flask web application with multiple interaction modes
 - **Real-time Predictions**: Instant legal advice based on case parameters
 - **Model Transparency**: View trained model hypotheses and decision patterns
+- **Session Management**: Persistent chat sessions with reset functionality
 
 ### Legal Case Types Supported
 - **Civil Cases**: Property disputes, eviction, cheque bounce
@@ -71,12 +74,13 @@ The Candidate Elimination algorithm is a concept learning algorithm that:
 
 4. **Access the Application**
    - Main Interface: http://localhost:5000
-   - Legal Assistant: http://localhost:5000/legal-assistant
+   - **Conversational Chatbot**: http://localhost:5000/chatbot
+   - Quick Form Analysis: http://localhost:5000/legal-assistant
    - Model Information: http://localhost:5000/model-info
 
 ## 📊 Dataset
 
-The system is trained on `synthetic_legal_cases.csv` containing:
+The system is trained on `minimal_legal_cases.csv` containing:
 - **65 legal cases** with various attributes
 - **7 input features**: Case Type, Sub-Type, Value Involved, Agreement Signed, Notice Given, Consumer Complaint, Matrimonial Issue
 - **1 target variable**: Legal Issue (Yes/No)
@@ -86,7 +90,7 @@ The system is trained on `synthetic_legal_cases.csv` containing:
 |-----------|-------------|-----------------|
 | Case Type | Primary category of legal case | Civil, Criminal, Consumer, Family, Environmental, PIL |
 | Sub-Type | Specific type within category | Theft, Divorce, Property Dispute, etc. |
-| Value Involved | Monetary value of the case | <10k, 10k–1L, >1L |
+| Value Involved | Monetary value of the case | <10k, 10k-50k, >50k |
 | Agreement Signed | Whether parties had a signed agreement | Yes, No |
 | Notice Given | Whether legal notice was served | Yes, No |
 | Consumer Complaint | Whether it's a consumer-related issue | Yes, No |
@@ -132,9 +136,28 @@ Legal-assistance/
 
 ## 🎮 Usage Guide
 
-### Web Interface Usage
+### Conversational Chatbot Usage
 
-1. **Navigate to Legal Assistant**
+1. **Start Chat Session**
+   - Go to http://localhost:5000/chatbot
+   - Click "Start Chat" to begin conversation
+
+2. **Interactive Q&A**
+   - Bot asks questions one by one
+   - Select from dropdown options for case types
+   - Use Yes/No buttons for binary questions
+   - Each answer is processed immediately
+
+3. **Get Results**
+   - After all questions, receive comprehensive analysis
+   - View prediction with confidence level
+   - See complete case summary
+   - Get personalized legal recommendations
+   - Option to print results or start new chat
+
+### Quick Form Analysis
+
+1. **Navigate to Form Interface**
    - Go to http://localhost:5000/legal-assistant
 
 2. **Fill Case Details**
@@ -192,6 +215,26 @@ General Hypotheses: [
     ...
 ]
 ```
+
+## 💬 Chatbot Features
+
+### Interactive Conversation Flow
+- **Sequential Questions**: Guided step-by-step case analysis
+- **Dynamic UI**: Dropdown menus and Yes/No buttons based on question type
+- **Real-time Processing**: Immediate response to each user input
+- **Session Management**: Persistent conversation state across interactions
+
+### User Experience
+- **Clean Chat Interface**: Modern chat-style design with message bubbles
+- **Visual Feedback**: Typing indicators and smooth animations
+- **Responsive Design**: Works on desktop and mobile devices
+- **Reset Functionality**: Start new conversations anytime
+
+### Advanced Features
+- **Comprehensive Results**: Detailed case summary and analysis
+- **Print Support**: Print-friendly result formatting
+- **Error Handling**: Graceful handling of connection issues
+- **Accessibility**: Screen reader friendly interface
 
 ## 🛡️ Security Features
 

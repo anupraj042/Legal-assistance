@@ -1,74 +1,101 @@
-from flask import Flask, render_template, request
-from candidate_elimination import predict, train_model, get_model_info
+from flask import Flask, render_template, request, jsonify, session
+from candidate_elimination import load_cases, predict_legal_issue
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
-@app.after_request
-def after_request(response):
-    # Add security headers
-    response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'DENY'
-    response.headers['X-XSS-Protection'] = '1; mode=block'
-    return response
+# Load CSV dataset at startup
+dataset = load_cases("minimal_legal_cases.csv")
+
+# Reset session
+@app.route('/reset', methods=['GET'])
+def reset():
+    session.clear()
+    return jsonify({"message": "Session reset."})
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template('home.html')
+
+@app.route('/chatbot')
+def chatbot():
+    return render_template('index.html')
 
 @app.route('/legal-assistant')
-def index():
-    return render_template("index.html")
+def legal_assistant():
+    return render_template('legal_form.html')
 
-@app.route('/model-info')
-def model_info():
-    """Display information about the trained Candidate Elimination model"""
-    info = get_model_info()
-    return f"<pre>{info}</pre>"
-
-@app.route('/predict', methods=['POST'])
-def prediction():
-    # Get form data
-    form_data = {
-        'case_type': request.form['case_type'],
-        'sub_type': request.form['sub_type'],
-        'agreement': request.form['agreement'],
-        'notice': request.form['notice'],
-        'consumer': request.form['consumer'],
-        'matrimonial': request.form['matrimonial'],
-        'value': request.form['value']
-    }
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get("message")
+    step = session.get("step", 0)
+    context = session.get("context", {})
     
-    data = [
-        form_data['case_type'],
-        form_data['sub_type'],
-        form_data['agreement'],
-        form_data['notice'],
-        form_data['consumer'],
-        form_data['matrimonial'],
-        form_data['value']
+    questions = [
+        ("case_type", "What type of case is this? (Civil, Criminal, Family, Consumer, etc.)"),
+        ("sub_type", "Can you specify the issue? (Eviction, Dowry, Divorce, etc.)"),
+        ("value", "What is the value involved? (<10k, 10k-50k, >50k, N/A)"),
+        ("agreement", "Did you sign any agreement? (Yes/No)"),
+        ("notice", "Did you give a legal notice? (Yes/No)"),
+        ("consumer", "Is this a consumer complaint? (Yes/No)"),
+        ("matrimonial", "Is this related to a matrimonial issue? (Yes/No)")
     ]
     
-    result, guidance = predict(data)
-    return render_template("index.html", result=result, guidance=guidance, form_data=form_data)
+    # If this is the first message or "start", begin the conversation
+    if step == 0 and (user_input.lower() == "start" or user_input.lower() == "hello"):
+        session["step"] = 1
+        session["context"] = {}
+        return jsonify({"reply": questions[0][1]})
+    
+    # If we're in the middle of questions
+    if 1 <= step <= len(questions):
+        # Store the answer for the current question
+        current_key = questions[step - 1][0]
+        context[current_key] = user_input
+        session["context"] = context
+        
+        # Check if we have more questions
+        if step < len(questions):
+            session["step"] = step + 1
+            next_question = questions[step][1]
+            return jsonify({"reply": next_question})
+        else:
+            # All questions answered, make prediction
+            prediction, guidance = predict_legal_issue(context, dataset)
+            session.clear()
+            return jsonify({
+                "reply": f"✅ Legal Issue: {prediction}\n📘 Guidance: {guidance}\n\n📋 Case Summary:\n" + 
+                        "\n".join([f"• {k.replace('_', ' ').title()}: {v}" for k, v in context.items()])
+            })
+    
+    # If no step is set or invalid state, prompt to start
+    return jsonify({"reply": "Hi! I'm your Legal Assistant. Type 'start' to begin analyzing your legal case."})
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    """Handle form-based prediction requests"""
+    try:
+        # Get JSON data from form
+        if request.is_json:
+            form_data = request.get_json()
+        else:
+            # Handle form data if needed
+            form_data = request.form.to_dict()
+        
+        # Make prediction using the same function as chat
+        prediction, guidance = predict_legal_issue(form_data, dataset)
+        
+        # Return JSON response for form
+        return jsonify({
+            "prediction": prediction,
+            "confidence": "Medium",  # You can enhance this based on your algorithm
+            "guidance": guidance,
+            "case_summary": form_data
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print("=" * 50)
-    print("🏛️  LEGAL ASSISTANCE BOT STARTING...")
-    print("=" * 50)
-    
-    # Train the Candidate Elimination model
-    print("🎯 Training Candidate Elimination Algorithm...")
-    if train_model():
-        print("✅ Model training completed successfully!")
-    else:
-        print("❌ Model training failed!")
-    
-    print("=" * 50)
-    print("📍 Server will be available at: http://127.0.0.1:5000")
-    print("📍 Or visit: http://localhost:5000")
-    print("📍 Model info available at: http://localhost:5000/model-info")
-    print("🔧 Debug mode: ON")
-    print("⏹️  Press Ctrl+C to stop the server")
-    print("=" * 50)
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True)

@@ -1,0 +1,66 @@
+Case Type,Sub-Type,Value Involved,Agreement Signed,Notice Given,Consumer Complaint,Matrimonial Issue,Legal Issue
+Family,Maintenance,<10k,Yes,No,No,Yes,Yes
+Criminal,Theft,10k-50k,Yes,No,Yes,No,Yes
+Criminal,Domestic Violence,>50k,Yes,Yes,Yes,No,Yes
+Criminal,Domestic Violence,>50k,No,Yes,No,No,Yes
+Criminal,Dowry Harassment,,Yes,No,No,No,Yes
+Civil,Eviction,<10k,Yes,No,No,No,Yes
+Family,Divorce,10k-50k,Yes,Yes,No,Yes,Yes
+Civil,Eviction,,No,No,No,No,Yes
+Criminal,Dowry Harassment,<10k,Yes,No,Yes,No,Yes
+Criminal,Dowry Harassment,>50k,Yes,No,No,No,Yes
+Environmental,Pollution,10k-50k,No,Yes,Yes,No,Yes
+Civil,Cheque Bounce,10k-50k,Yes,Yes,Yes,No,Yes
+Criminal,Dowry Harassment,<10k,No,Yes,Yes,No,Yes
+Family,Child Custody,,Yes,No,Yes,Yes,Yes
+Consumer,Non-Delivery,,Yes,Yes,Yes,No,Yes
+Environmental,Illegal Mining,,No,Yes,Yes,No,Yes
+Civil,Eviction,,No,Yes,No,No,Yes
+Environmental,Illegal Mining,<10k,Yes,No,No,No,Yes
+Civil,Eviction,10k-50k,No,Yes,No,No,Yes
+Criminal,Dowry Harassment,,No,No,Yes,No,Yes
+Family,Child Custody,<10k,Yes,Yes,No,Yes,Yes
+Criminal,Theft,>50k,No,Yes,Yes,No,Yes
+Family,Maintenance,10k-50k,Yes,No,No,Yes,Yes
+Environmental,Land Violation,<10k,Yes,Yes,No,No,Yes
+Environmental,Pollution,,No,Yes,No,No,Yes
+Family,Child Custody,>50k,Yes,Yes,No,Yes,Yes
+PIL,RTI Delay,,No,No,Yes,No,Yes
+Consumer,False Ads,10k-50k,Yes,No,Yes,No,Yes
+Civil,Cheque Bounce,>50k,No,Yes,No,No,Yes
+Family,Maintenance,<10k,No,Yes,Yes,Yes,Yes
+Family,Child Custody,<10k,No,Yes,No,Yes,Yes
+Family,Divorce,>50k,No,No,No,Yes,Yes
+Civil,Property Dispute,>50k,No,No,No,No,No
+Consumer,False Ads,<10k,Yes,Yes,Yes,No,No
+Civil,Property Dispute,10k-50k,No,Yes,No,No,No
+Civil,Property Dispute,10k-50k,No,Yes,Yes,No,No
+Civil,Property Dispute,>50k,No,Yes,No,No,No
+Civil,Property Dispute,<10k,Yes,Yes,No,No,No
+Consumer,False Ads,<10k,No,Yes,Yes,No,No
+Consumer,Non-Delivery,<10k,No,No,No,No,No
+Consumer,Non-Delivery,10k-50k,No,No,Yes,No,No
+Civil,Cheque Bounce,<10k,No,No,No,No,No
+Civil,Cheque Bounce,10k-50k,No,No,Yes,No,No
+Family,Divorce,<10k,No,No,No,Yes,No
+Family,Divorce,10k-50k,No,No,Yes,Yes,No
+Family,Maintenance,,No,No,No,Yes,No
+Environmental,Land Violation,10k-50k,No,No,No,No,No
+Environmental,Land Violation,>50k,No,No,Yes,No,No
+PIL,RTI Delay,<10k,No,No,No,No,No
+PIL,RTI Delay,10k-50k,No,No,Yes,No,No
+Environmental,Pollution,<10k,No,No,No,No,No
+Environmental,Pollution,10k-50k,No,No,Yes,No,No
+Criminal,Theft,<10k,No,No,No,No,No
+Criminal,Theft,10k-50k,No,No,Yes,No,No
+Consumer,False Ads,>50k,No,No,No,No,No
+Consumer,Non-Delivery,>50k,No,No,Yes,No,No
+Civil,Eviction,<10k,No,No,Yes,No,No
+Civil,Eviction,10k-50k,No,No,No,No,No
+Family,Child Custody,10k-50k,No,No,Yes,Yes,No
+Family,Child Custody,>50k,No,No,No,Yes,No
+Environmental,Illegal Mining,10k-50k,No,No,Yes,No,No
+Environmental,Illegal Mining,>50k,No,No,No,No,No
+PIL,RTI Delay,>50k,No,No,Yes,No,No
+Criminal,Domestic Violence,<10k,No,No,Yes,No,No
+Criminal,Domestic Violence,10k-50k,No,No,No,No,No

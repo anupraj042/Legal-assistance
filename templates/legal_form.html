@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant - Quick Form Analysis</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control select {
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .radio-option input[type="radio"] {
+            margin: 0;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .radio-option:has(input[type="radio"]:checked) {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+            min-width: 200px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #28a745;
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        .result-container h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .case-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .case-summary h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .case-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .case-detail:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .reset-btn:hover {
+            background: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </div>
+            <h1><i class="fas fa-gavel"></i> Quick Legal Analysis</h1>
+            <p>Fill out the form below to get instant legal guidance for your case</p>
+        </div>
+
+        <div class="form-container">
+            <form id="legalForm">
+                <div class="form-section">
+                    <h3><i class="fas fa-folder-open"></i> Case Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="case_type">What type of legal case do you have?</label>
+                        <select id="case_type" name="case_type" class="form-control" required>
+                            <option value="">Select case type...</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Criminal">Criminal</option>
+                            <option value="Family">Family</option>
+                            <option value="Consumer">Consumer</option>
+                            <option value="Environmental">Environmental</option>
+                            <option value="PIL">PIL (Public Interest Litigation)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sub_type">Specific issue or sub-type:</label>
+                        <select id="sub_type" name="sub_type" class="form-control" required>
+                            <option value="">First select case type...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="value">What is the monetary value involved?</label>
+                        <select id="value" name="value" class="form-control" required>
+                            <option value="">Select value range...</option>
+                            <option value="<10k">Less than ₹10,000</option>
+                            <option value="10k-50k">₹10,000 - ₹50,000</option>
+                            <option value=">50k">More than ₹50,000</option>
+                            <option value="N/A">Not Applicable</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-file-contract"></i> Legal Documentation</h3>
+                    
+                    <div class="form-group">
+                        <label>Was there any agreement or contract signed?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="agreement_yes" name="agreement" value="Yes" required>
+                                <label for="agreement_yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="agreement_no" name="agreement" value="No" required>
+                                <label for="agreement_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Did you give any legal notice to the other party?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="notice_yes" name="notice" value="Yes" required>
+                                <label for="notice_yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="notice_no" name="notice" value="No" required>
+                                <label for="notice_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-question-circle"></i> Additional Details</h3>
+                    
+                    <div class="form-group">
+                        <label>Is this related to a consumer complaint?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="consumer_yes" name="consumer" value="Yes" required>
+                                <label for="consumer_yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="consumer_no" name="consumer" value="No" required>
+                                <label for="consumer_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Is this related to a matrimonial (marriage) issue?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="matrimonial_yes" name="matrimonial" value="Yes" required>
+                                <label for="matrimonial_yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="matrimonial_no" name="matrimonial" value="No" required>
+                                <label for="matrimonial_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-search"></i> Analyze My Case
+                </button>
+                <button type="button" class="reset-btn" onclick="resetForm()">
+                    <i class="fas fa-redo"></i> Reset Form
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i> Analyzing your case...
+            </div>
+
+            <div class="result-container" id="resultContainer">
+                <h3><i class="fas fa-check-circle"></i> Legal Analysis Results</h3>
+                <div id="resultContent"></div>
+                <div class="case-summary">
+                    <h4>Your Case Summary:</h4>
+                    <div id="caseSummary"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sub-type options based on case type
+        const subTypeOptions = {
+            'Civil': ['Property Dispute', 'Eviction', 'Cheque Bounce', 'Contract Dispute', 'Defamation'],
+            'Criminal': ['Theft', 'Domestic Violence', 'Dowry Harassment', 'Fraud', 'Assault'],
+            'Consumer': ['Non-Delivery', 'False Ads', 'Defective Product', 'Service Issue', 'Overcharging'],
+            'Family': ['Divorce', 'Child Custody', 'Maintenance', 'Property Settlement', 'Adoption'],
+            'Environmental': ['Pollution', 'Illegal Mining', 'Land Violation', 'Waste Disposal', 'Deforestation'],
+            'PIL': ['RTI Delay', 'Public Welfare', 'Government Negligence', 'Corruption', 'Rights Violation']
+        };
+
+        // Update sub-type options when case type changes
+        document.getElementById('case_type').addEventListener('change', function() {
+            const caseType = this.value;
+            const subTypeSelect = document.getElementById('sub_type');
+            
+            subTypeSelect.innerHTML = '<option value="">Select sub-type...</option>';
+            
+            if (caseType && subTypeOptions[caseType]) {
+                subTypeOptions[caseType].forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    subTypeSelect.appendChild(optionElement);
+                });
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('legalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('submitBtn').disabled = true;
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Analysis failed');
+                }
+                
+                const result = await response.json();
+                
+                // Hide loading
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('submitBtn').disabled = false;
+                
+                // Show results
+                displayResults(result, data);
+                
+            } catch (error) {
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('submitBtn').disabled = false;
+                alert('Error analyzing your case. Please try again.');
+                console.error('Error:', error);
+            }
+        });
+
+        function displayResults(result, formData) {
+            const resultContainer = document.getElementById('resultContainer');
+            const resultContent = document.getElementById('resultContent');
+            const caseSummary = document.getElementById('caseSummary');
+            
+            // Display prediction and guidance
+            resultContent.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <strong>Legal Action Recommended:</strong> 
+                    <span style="color: ${result.prediction === 'Yes' ? '#28a745' : '#dc3545'}; font-weight: bold;">
+                        ${result.prediction}
+                    </span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong>Confidence Level:</strong> ${result.confidence || 'Medium'}
+                </div>
+                <div>
+                    <strong>Legal Guidance:</strong><br>
+                    ${result.guidance}
+                </div>
+            `;
+            
+            // Display case summary
+            caseSummary.innerHTML = Object.entries(formData)
+                .map(([key, value]) => `
+                    <div class="case-detail">
+                        <span><strong>${key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong></span>
+                        <span>${value}</span>
+                    </div>
+                `).join('');
+            
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('legalForm').reset();
+            document.getElementById('sub_type').innerHTML = '<option value="">First select case type...</option>';
+            document.getElementById('resultContainer').classList.remove('show');
+            document.getElementById('loading').classList.remove('show');
+            document.getElementById('submitBtn').disabled = false;
+        }
+    </script>
+</body>
+</html>
